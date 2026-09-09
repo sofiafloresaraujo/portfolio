@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Silkscreen:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #b8b8b6; -webkit-font-smoothing: none; }
+  a { color: #000; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
+  .px { font-family: 'Pixelify Sans', sans-serif; }
+  .ss { font-family: 'Silkscreen', monospace; }
+  .mono { font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+  @media (max-width: 768px) {
+    div[style*="padding:56px"] { padding: 20px !important; }
+    div[style*="max-width:1240px"][style*="padding:40px 72px"] { padding: 28px 24px !important; }
+    div[style*="grid-template-columns:1fr 1.3fr"] { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 480px) {
+    .sofia-menu-bar { height: auto !important; flex-wrap: wrap; padding: 6px 8px !important; row-gap: 4px; }
+    .sofia-menu-bar button { padding: 3px 6px !important; font-size: 11px !important; }
+  }
+</style>
+</helmet>
+
+<div class="px sofia-menu-bar" style="position:fixed;top:0;left:0;right:0;width:100%;z-index:1000;height:26px;background:#fff;border-bottom:2px solid #000;display:flex;align-items:center;padding:0 10px;font-weight:600;font-size:14px;">
+  <div style="width:13px;height:13px;background:#000;border-radius:3px;margin-right:16px;flex:none;"></div>
+  <sc-for list="{{ menus }}" as="menu" hint-placeholder-count="5">
+    <div style="position:relative;" onClick="{{ stopBubble }}">
+      <button onClick="{{ menu.toggle }}" class="px" style="{{ menu.btnStyle }}">{{ menu.label }}</button>
+      <sc-if value="{{ menu.open }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:24px;left:0;min-width:210px;background:#fff;border:2px solid #000;box-shadow:4px 4px 0 #000;z-index:1050;padding:5px 0;">
+          <sc-for list="{{ menu.items }}" as="item" hint-placeholder-count="3">
+            <sc-if value="{{ item.sep }}" hint-placeholder-val="{{ false }}"><div style="border-top:1px solid #000;margin:5px 10px;"></div></sc-if>
+            <sc-if value="{{ item.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ item.href }}" style="{{ item.itemStyle }}">{{ item.label }}</a></sc-if>
+            <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}"><button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="{{ item.itemStyle }}">{{ item.label }}</button></sc-if>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+  <span class="ss" style="margin-left:auto;font-size:11px;">SOFIA OS</span>
+</div>
+
+<div style="font-family:'Work Sans',Helvetica,Arial,sans-serif;padding:56px;padding-top:82px;background:conic-gradient(#000 90deg,#fff 90deg 180deg,#000 180deg 270deg,#fff 270deg) 0 0/2px 2px;min-height:100vh;" onClick="{{ closeMenus }}">
+
+  <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+    <a href="index.html" class="px" style="display:inline-flex;align-items:center;gap:8px;border:2px solid #000;border-radius:11px;background:#fff;padding:9px 16px;box-shadow:2px 2px 0 #000;font-weight:600;font-size:14px;">◂ Portfolio</a>
+    <div class="ss" style="font-size:11px;background:#000;color:#fff;padding:6px 12px;">CASE STUDIES</div>
+  </div>
+
+  <div style="max-width:1240px;margin:0 auto;border:2px solid #000;background:#fff;box-shadow:8px 8px 0 rgba(0,0,0,.35);">
+    <div style="position:relative;height:28px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;inset:5px 8px;background:repeating-linear-gradient(#000 0 1px,transparent 1px 3px);"></div>
+<a href="index.html" aria-label="Close window and return to desktop" title="Close window and return to desktop" style="position:absolute;left:8px;top:6px;width:13px;height:13px;border:2px solid #000;background:#fff;display:block;cursor:pointer;"></a>
+      <span class="px" style="position:relative;background:#fff;padding:0 12px;font-weight:600;font-size:13px;">Case Studies</span>
+    </div>
+
+    <!-- CASE 01 -->
+    <div style="padding:40px 72px;">
+      <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:32px;align-items:start;">
+        <div>
+          <div class="ss" style="font-size:10px;color:#555;">01 / AI · ONBOARDING · B2B</div>
+          <h2 style="margin:14px 0 0;font-weight:700;font-size:26px;line-height:1.25;">Introducing Agentic AI</h2>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#333;max-width:420px;">Onboarding AI into a complex B2B platform.</p>
+          <div class="ss" style="display:flex;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:9px;">
+            <span style="border:1px solid #000;padding:3px 7px;">AI</span><span style="border:1px solid #000;padding:3px 7px;">ONBOARDING</span><span style="border:1px solid #000;padding:3px 7px;">B2B</span>
+          </div>
+          <div style="margin-top:20px;"><a href="case-01.html" class="px" style="font-weight:700;font-size:15px;">View case →</a></div>
+        </div>
+        <a href="case-01.html" style="display:block;">
+          <div style="border:2px solid #000;height:220px;overflow:hidden;background:radial-gradient(#000 1.1px,#fff 1.7px) 0 0/5px 5px;"></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CASE 02 -->
+    <div style="border-top:2px solid #000;padding:40px 72px;">
+      <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:32px;align-items:start;">
+        <div>
+          <div class="ss" style="font-size:10px;color:#555;">02 / ESIGNATURE · SYSTEM DESIGN · B2B</div>
+          <h2 style="margin:14px 0 0;font-weight:700;font-size:26px;line-height:1.25;">Expanding eSignatures Beyond the Lease</h2>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#333;max-width:420px;">Expanding a lease-bound feature into a system for any document, signer and portal.</p>
+          <div class="ss" style="display:flex;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:9px;">
+            <span style="border:1px solid #000;padding:3px 7px;">ESIGNATURE</span><span style="border:1px solid #000;padding:3px 7px;">SYSTEM DESIGN</span><span style="border:1px solid #000;padding:3px 7px;">B2B</span>
+          </div>
+          <div style="margin-top:20px;"><a href="case-02.html" class="px" style="font-weight:700;font-size:15px;">View case →</a></div>
+        </div>
+        <a href="case-02.html" style="display:block;">
+          <div style="border:2px solid #000;height:220px;overflow:hidden;background:repeating-linear-gradient(45deg,#000 0 2px,#fff 2px 6px);"></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CASE 03 -->
+    <div style="border-top:2px solid #000;padding:40px 72px;">
+      <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:32px;align-items:start;">
+        <div>
+          <div class="ss" style="font-size:10px;color:#555;">03 / AI · RESEARCH · B2B SAAS · DECISION DESIGN</div>
+          <h2 style="margin:14px 0 0;font-weight:700;font-size:26px;line-height:1.25;">Automating the Coordination, Not the Decision</h2>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#333;max-width:420px;">Designing an AI-assisted renewal workflow that reduced coordination work while keeping final approval with the rental owner.</p>
+          <div class="ss" style="display:flex;gap:6px;margin-top:16px;flex-wrap:wrap;font-size:9px;">
+            <span style="border:1px solid #000;padding:3px 7px;">AI</span><span style="border:1px solid #000;padding:3px 7px;">RESEARCH</span><span style="border:1px solid #000;padding:3px 7px;">B2B SAAS</span><span style="border:1px solid #000;padding:3px 7px;">DECISION DESIGN</span>
+          </div>
+          <div style="margin-top:20px;"><a href="case-03.html" class="px" style="font-weight:700;font-size:15px;">View case →</a></div>
+        </div>
+        <a href="case-03.html" style="display:block;">
+          <div style="border:2px solid #000;height:220px;overflow:hidden;">
+            <img src="uploads/AI settings _ Renewal Offers.png" alt="Lumina AI settings, rental owner approvals for renewal offers" style="width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.02);display:block;">
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { openMenu: null };
+  toggleMenu = (key) => this.setState((s) => ({ openMenu: s.openMenu === key ? null : key }));
+  closeMenus = () => this.setState({ openMenu: null });
+  stopBubble = (e) => e.stopPropagation();
+
+  menuBtnStyle(active) {
+    return 'background:' + (active ? '#000' : 'none') + ';color:' + (active ? '#fff' : '#000') + ';border:none;font-weight:600;font-size:14px;padding:4px 12px;cursor:pointer;';
+  }
+  itemStyle(disabled) {
+    return 'display:block;width:100%;text-align:left;background:none;border:none;padding:7px 16px;font-size:13px;font-family:"Work Sans",sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
+  }
+
+  renderVals() {
+    const s = this.state;
+    const itemStyle = this.itemStyle(false);
+    const itemStyleDisabled = this.itemStyle(true);
+
+    const menus = [
+      {
+        key: 'file', label: 'File', open: s.openMenu === 'file', btnStyle: this.menuBtnStyle(s.openMenu === 'file'), toggle: () => this.toggleMenu('file'),
+        items: [
+          { isLink: true, href: 'index.html', label: 'Open Portfolio', itemStyle },
+          { sep: true },
+          { isButton: true, label: 'Open CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, label: 'Download CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled }
+        ]
+      },
+      {
+        key: 'edit', label: 'Edit', open: s.openMenu === 'edit', btnStyle: this.menuBtnStyle(s.openMenu === 'edit'), toggle: () => this.toggleMenu('edit'),
+        items: [
+          { isButton: true, label: 'Undo', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, label: 'Cut', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, label: 'Copy', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, label: 'Paste', disabled: true, action: () => {}, itemStyle: itemStyleDisabled }
+        ]
+      },
+      {
+        key: 'work', label: 'Work', open: s.openMenu === 'work', btnStyle: this.menuBtnStyle(s.openMenu === 'work'), toggle: () => this.toggleMenu('work'),
+        items: [
+          { isLink: true, href: 'case-01.html', label: '01  Introducing Agentic AI', itemStyle },
+          { isLink: true, href: 'case-02.html', label: '02  Expanding eSignatures Beyond the Lease', itemStyle },
+          { isLink: true, href: 'case-03.html', label: '03  Automating the Coordination, Not the Decision', itemStyle },
+          { sep: true },
+          { isLink: true, href: 'index.html#anthesis-window', label: 'Anthesis', itemStyle }
+        ]
+      },
+      {
+        key: 'view', label: 'View', open: s.openMenu === 'view', btnStyle: this.menuBtnStyle(s.openMenu === 'view'), toggle: () => this.toggleMenu('view'),
+        items: [
+          { isLink: true, href: 'index.html#hero-window', label: 'Home', itemStyle },
+          { isLink: true, href: 'index.html#selected-work', label: 'Selected Work', itemStyle },
+          { isLink: true, href: 'index.html#capabilities-window', label: 'Capabilities', itemStyle },
+          { isLink: true, href: 'index.html#anthesis-window', label: 'Anthesis', itemStyle }
+        ]
+      },
+      {
+        key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
+        items: [
+          { isLink: true, href: 'index.html', label: 'Portfolio', itemStyle },
+          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
+        ]
+      }
+    ];
+
+    return { menus, closeMenus: this.closeMenus, stopBubble: this.stopBubble };
+  }
+}
+
+</script>
+</body>
+</html>

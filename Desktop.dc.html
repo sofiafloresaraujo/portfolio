@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Silkscreen:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #b8b8b6; -webkit-font-smoothing: none; }
+  a { color: #000; text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
+  .px { font-family: 'Pixelify Sans', sans-serif; }
+  .ss { font-family: 'Silkscreen', monospace; }
+  button { font: inherit; }
+  @keyframes sofia-fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .sofia-fade { animation: none !important; }
+  }
+</style>
+</helmet>
+
+<div style="position:relative;width:100%;height:100vh;overflow:hidden;background:#b8b8b6;font-family:'Work Sans',Helvetica,Arial,sans-serif;">
+
+  <sc-if value="{{ showWelcome }}" hint-placeholder-val="{{ true }}">
+    <div class="sofia-fade" role="button" tabindex="0" aria-label="Dismiss welcome screen" onClick="{{ dismissWelcome }}" onKeyDown="{{ handleWelcomeKey }}" style="position:fixed;inset:0;background:#eceae7;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:22px;z-index:9999;cursor:pointer;animation:sofia-fade-in .4s ease;">
+      <svg width="76" height="70" viewBox="0 0 76 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="15" y="4" width="46" height="42" rx="4" stroke="#000" stroke-width="2" fill="#fff"></rect>
+        <rect x="21" y="10" width="34" height="26" rx="1" stroke="#000" stroke-width="2" fill="#fff"></rect>
+        <circle cx="32" cy="20" r="1.7" fill="#000"></circle>
+        <circle cx="44" cy="20" r="1.7" fill="#000"></circle>
+        <path d="M29 27 Q38 32 47 27" stroke="#000" stroke-width="2" fill="none" stroke-linecap="round"></path>
+        <rect x="32" y="46" width="12" height="6" fill="#000"></rect>
+        <rect x="17" y="53" width="42" height="4" rx="1" fill="#000"></rect>
+      </svg>
+      <div class="ss" style="font-size:15px;letter-spacing:.3px;">Welcome to Sofia OS...</div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showDesktop }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0;">
+
+      <div class="px" style="height:26px;background:#fff;border-bottom:2px solid #000;display:flex;align-items:center;padding:0 10px;font-weight:600;font-size:14px;position:relative;z-index:800;">
+        <div style="width:13px;height:13px;background:#000;border-radius:3px;margin-right:16px;flex:none;"></div>
+        <sc-for list="{{ menus }}" as="menu" hint-placeholder-count="5">
+          <div style="position:relative;">
+            <button onClick="{{ menu.toggle }}" class="px" style="{{ menu.btnStyle }}">{{ menu.label }}</button>
+            <sc-if value="{{ menu.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:24px;left:0;min-width:220px;background:#fff;border:2px solid #000;box-shadow:4px 4px 0 #000;z-index:850;padding:5px 0;">
+                <sc-for list="{{ menu.items }}" as="item" hint-placeholder-count="3">
+                  <sc-if value="{{ item.sep }}" hint-placeholder-val="{{ false }}">
+                    <div style="border-top:1px solid #000;margin:5px 10px;"></div>
+                  </sc-if>
+                  <sc-if value="{{ item.isLink }}" hint-placeholder-val="{{ false }}">
+                    <a href="{{ item.href }}" style="{{ item.itemStyle }}">{{ item.label }}</a>
+                  </sc-if>
+                  <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="{{ item.itemStyle }}">{{ item.label }}</button>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <span class="ss" style="margin-left:auto;font-size:11px;">SOFIA OS</span>
+      </div>
+
+      <div style="position:absolute;inset:26px 0 0 0;" onClick="{{ closeMenus }}">
+
+<sc-if value="{{ showDesktopIcons }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;left:{{ folderX }}px;top:{{ folderY }}px;width:100px;text-align:center;cursor:grab;user-select:none;" onMouseDown="{{ startDragFolder }}" onDoubleClick="{{ openPortfolio }}">
+          <svg width="58" height="42" viewBox="0 0 58 42" style="margin:0 auto;display:block;image-rendering:pixelated;">
+            <rect x="1" y="9" width="56" height="31" fill="#fff" stroke="#000" stroke-width="2"></rect>
+            <path d="M1 9V4h20l4 5" fill="#fff" stroke="#000" stroke-width="2"></path>
+            <line x1="1" y1="16" x2="57" y2="16" stroke="#000" stroke-width="1"></line>
+          </svg>
+          <div class="ss" style="font-size:9.5px;margin-top:4px;color:#000;background:#b8b8b6;">MY PORTFOLIO</div>
+        </div>
+
+        <div id="sofia-os-trash" style="position:absolute;right:40px;bottom:40px;width:70px;text-align:center;cursor:pointer;user-select:none;" onClick="{{ openTrash }}">
+          <div style="{{ trashBoxStyle }}">
+            <svg width="36" height="40" viewBox="0 0 36 40" style="image-rendering:pixelated;">
+              <rect x="3" y="9" width="30" height="27" fill="#fff" stroke="#000" stroke-width="2"></rect>
+              <line x1="8" y1="14" x2="8" y2="31" stroke="#000" stroke-width="1.4"></line>
+              <line x1="14" y1="14" x2="14" y2="31" stroke="#000" stroke-width="1.4"></line>
+              <line x1="21" y1="14" x2="21" y2="31" stroke="#000" stroke-width="1.4"></line>
+              <line x1="27" y1="14" x2="27" y2="31" stroke="#000" stroke-width="1.4"></line>
+              <path d="M0 9h36" stroke="#000" stroke-width="2"></path>
+              <path d="M11 9V4h13v5" fill="none" stroke="#000" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div class="ss" style="font-size:9.5px;margin-top:4px;color:#000;">Trash</div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ portfolioOpen }}" hint-placeholder-val="{{ false }}">
+          <div onMouseDown="{{ focusPortfolio }}" style="{{ portfolioWinStyle }}">
+            <div ref="{{ portfolioScrollRef }}" style="flex:1;overflow:auto;background:#fff;">
+              <dc-import name="Homepage" on-close-portfolio="{{ closePortfolio }}" hint-size="1200px,1600px"></dc-import>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ trashOpen }}" hint-placeholder-val="{{ false }}">
+          <div onMouseDown="{{ focusTrash }}" style="{{ trashWinStyle }}">
+            <div class="px" style="height:26px;border-bottom:2px solid #000;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;flex:none;">
+              <span style="font-size:14px;font-weight:600;">Trash</span>
+              <button onClick="{{ closeTrash }}" aria-label="Close window" style="position:absolute;left:6px;top:2px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;padding:0;cursor:pointer;"><span style="width:13px;height:13px;border:2px solid #fff;background:#000;display:block;"></span></button>
+            </div>
+            <div class="px" style="height:22px;border-bottom:2px solid #000;display:flex;align-items:center;font-size:12px;">
+              <span style="flex:1;padding-left:12px;">0 items</span>
+              <span style="flex:1;text-align:right;padding-right:12px;">0K in disk</span>
+            </div>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">
+              Trash is empty.
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ cvOpen }}" hint-placeholder-val="{{ false }}">
+          <div onMouseDown="{{ focusCV }}" style="{{ cvWinStyle }}">
+            <div class="px" style="height:26px;border-bottom:2px solid #000;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;flex:none;">
+              <span style="font-size:14px;font-weight:600;">CV</span>
+              <button onClick="{{ closeCV }}" aria-label="Close window" style="position:absolute;left:6px;top:2px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;padding:0;cursor:pointer;"><span style="width:13px;height:13px;border:2px solid #fff;background:#000;display:block;"></span></button>
+            </div>
+            <div style="flex:1;overflow:auto;background:#fff;padding:32px;">
+              <div class="ss" style="font-size:11px;color:#555;">CV</div>
+              <h2 style="margin:14px 0 0;font-weight:700;font-size:22px;">Sofia Flores, Product Designer</h2>
+              <p style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#333;max-width:440px;">[ ADD CV CONTENT: attach a PDF or paste a resume summary here. ]</p>
+              <button disabled="" title="Add a CV file to enable download" class="px" style="margin-top:26px;border:2px solid #000;border-radius:12px;background:#000;color:#fff;padding:10px 20px;font-weight:700;font-size:14px;opacity:.45;cursor:not-allowed;">Download CV</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ paintOpen }}" hint-placeholder-val="{{ false }}">
+          <div onMouseDown="{{ focusPaint }}" style="{{ paintWinStyle }}">
+            <div class="px" style="height:26px;border-bottom:2px solid #000;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;flex:none;">
+              <span style="font-size:14px;font-weight:600;">{{ paintTitle }}</span>
+              <button onClick="{{ closePaint }}" aria-label="Close window" style="position:absolute;left:6px;top:2px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;padding:0;cursor:pointer;"><span style="width:13px;height:13px;border:2px solid #fff;background:#000;display:block;"></span></button>
+            </div>
+            <div style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+              <div style="display:flex;flex:1;overflow:hidden;">
+                <div style="width:68px;flex:none;border-right:2px solid #000;background:#fff;display:flex;flex-direction:column;padding:6px;gap:8px;">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+                    <button onClick="{{ setToolPencil }}" aria-label="Pencil" style="{{ btnPencil }}"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 12 L10 4 L12 6 L4 14z" fill="none" stroke="{{ colPencil }}" stroke-width="1.4"></path><path d="M9 3 L11 1 L13 3 L11 5z" fill="{{ colPencil }}"></path></svg></button>
+                    <button onClick="{{ setToolBrush }}" aria-label="Brush" style="{{ btnBrush }}"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 12 Q4 14 6 12 L12 3 L10 1 L3 8 Q1 10 2 12Z" fill="none" stroke="{{ colBrush }}" stroke-width="1.4"></path></svg></button>
+                    <button onClick="{{ setToolSpray }}" aria-label="Spray" style="{{ btnSpray }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="4" y="6" width="5" height="7" fill="none" stroke="{{ colSpray }}" stroke-width="1.3"></rect><rect x="5" y="2" width="3" height="4" fill="none" stroke="{{ colSpray }}" stroke-width="1.3"></rect><circle cx="11" cy="4" r="0.7" fill="{{ colSpray }}"></circle><circle cx="12" cy="7" r="0.7" fill="{{ colSpray }}"></circle><circle cx="10" cy="8" r="0.7" fill="{{ colSpray }}"></circle></svg></button>
+                    <button onClick="{{ setToolEraser }}" aria-label="Eraser" style="{{ btnEraser }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="5" width="10" height="6" fill="none" stroke="{{ colEraser }}" stroke-width="1.4" transform="rotate(-14 7 8)"></rect></svg></button>
+                    <button onClick="{{ setToolText }}" aria-label="Text" style="{{ btnText }}"><svg width="14" height="14" viewBox="0 0 14 14"><text x="2" y="11" font-size="11" font-family="monospace" fill="{{ colText }}">A</text></svg></button>
+                    <button onClick="{{ setToolBucket }}" aria-label="Bucket fill" style="{{ btnBucket }}"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 6 L7 1 L12 6 Z" fill="none" stroke="{{ colBucket }}" stroke-width="1.3"></path><rect x="2" y="6" width="10" height="6" fill="none" stroke="{{ colBucket }}" stroke-width="1.3"></rect></svg></button>
+                    <button onClick="{{ setToolLine }}" aria-label="Line" style="{{ btnLine }}"><svg width="14" height="14" viewBox="0 0 14 14"><line x1="2" y1="12" x2="12" y2="2" stroke="{{ colLine }}" stroke-width="1.6"></line></svg></button>
+                    <button onClick="{{ setToolRect }}" aria-label="Rectangle" style="{{ btnRect }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="3" width="10" height="8" fill="none" stroke="{{ colRect }}" stroke-width="1.4"></rect></svg></button>
+                    <button onClick="{{ setToolRectFilled }}" aria-label="Filled rectangle" style="{{ btnRectFilled }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="3" width="10" height="8" fill="{{ colRectFilled }}"></rect></svg></button>
+                    <button onClick="{{ setToolOval }}" aria-label="Oval" style="{{ btnOval }}"><svg width="14" height="14" viewBox="0 0 14 14"><ellipse cx="7" cy="7" rx="5" ry="4" fill="none" stroke="{{ colOval }}" stroke-width="1.4"></ellipse></svg></button>
+                    <button onClick="{{ setToolOvalFilled }}" aria-label="Filled oval" style="{{ btnOvalFilled }}"><svg width="14" height="14" viewBox="0 0 14 14"><ellipse cx="7" cy="7" rx="5" ry="4" fill="{{ colOvalFilled }}"></ellipse></svg></button>
+                    <div></div>
+                  </div>
+                  <div style="border-top:1px solid #000;padding-top:6px;display:flex;flex-direction:column;gap:2px;">
+                    <button onClick="{{ setStroke1 }}" style="{{ strokeBtn1 }}"><span style="width:100%;height:1px;background:#000;display:block;"></span></button>
+                    <button onClick="{{ setStroke2 }}" style="{{ strokeBtn2 }}"><span style="width:100%;height:2px;background:#000;display:block;"></span></button>
+                    <button onClick="{{ setStroke3 }}" style="{{ strokeBtn3 }}"><span style="width:100%;height:4px;background:#000;display:block;"></span></button>
+                    <button onClick="{{ setStroke4 }}" style="{{ strokeBtn4 }}"><span style="width:100%;height:6px;background:#000;display:block;"></span></button>
+                  </div>
+                </div>
+                <div style="flex:1;background:#fff;display:flex;align-items:center;justify-content:center;overflow:auto;padding:8px;">
+                  <canvas ref="{{ canvasRef }}" width="600" height="380" onMouseDown="{{ paintDown }}" onMouseMove="{{ paintMove }}" onMouseUp="{{ paintUp }}" onMouseLeave="{{ paintUp }}" style="border:1px solid #000;background:#fff;cursor:crosshair;max-width:100%;max-height:100%;"></canvas>
+                </div>
+              </div>
+              <div style="height:28px;flex:none;border-top:2px solid #000;background:#fff;display:flex;align-items:center;gap:1px;padding:0 6px;overflow-x:auto;">
+                <sc-for list="{{ patternTiles }}" as="tile" hint-placeholder-count="0">
+                  <button onClick="{{ tile.action }}" style="{{ tile.style }}"><img src="{{ tile.url }}" style="width:100%;height:100%;display:block;image-rendering:pixelated;" alt="Pattern"></button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <sc-if value="{{ alertOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:fixed;inset:0;background:rgba(0,0,0,.15);z-index:9500;display:flex;align-items:center;justify-content:center;">
+          <div style="width:320px;border:2px solid #000;background:#fff;box-shadow:6px 6px 0 #000;">
+            <div style="height:22px;background:#000;border-bottom:2px solid #000;"></div>
+            <div style="padding:22px 20px;">
+              <p class="ss" style="margin:0;font-size:12px;line-height:1.7;">This item can't be moved to the Trash.</p>
+              <p class="ss" style="margin:12px 0 0;font-size:12px;line-height:1.7;">Sofia worked too hard on it.</p>
+              <button ref="{{ alertOkRef }}" onClick="{{ closeAlert }}" class="px" style="margin-top:20px;border:2px solid #000;background:#fff;padding:8px 22px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:2px 2px 0 #000;">OK
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    stage: 'welcome',
+    openMenu: null,
+    folder: { x: 60, y: 40 },
+    trashHover: false,
+    windows: {
+      portfolio: { open: false, z: 1 },
+      cv: { open: false, z: 1 },
+      paint: { open: false, z: 1 },
+      trash: { open: false, z: 1 }
+    },
+    zTop: 1,
+    alertOpen: false,
+    paintTool: 'pencil',
+    paintDirty: false,
+    patternIndex: 0,
+    strokeWidth: 2
+  };
+
+  constructor(props) {
+    super(props);
+    this.portfolioScrollRef = React.createRef();
+    this.canvasRef = React.createRef();
+    this.alertOkRef = React.createRef();
+    this._paintInited = false;
+  }
+
+  componentDidMount() {
+    this.reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let shown = false;
+    try { shown = sessionStorage.getItem('sofiaOS_welcomeShown') === '1'; } catch (e) {}
+    if (shown) {
+      this.setState({ stage: 'desktop' });
+    } else {
+      const delay = this.reducedMotion ? 0 : 1500;
+      this._welcomeTimer = setTimeout(() => this.dismissWelcome(), delay);
+    }
+    this._keyHandler = (e) => {
+      if (this.state.stage === 'welcome' && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')) {
+        e.preventDefault();
+        this.dismissWelcome();
+      }
+      if (this.state.alertOpen && (e.key === 'Enter' || e.key === 'Escape')) {
+        this.closeAlert();
+        return;
+      }
+      if (e.key === 'Escape') {
+        const w = this.state.windows;
+        const candidates = ['paint', 'cv', 'trash'].filter((k) => w[k].open);
+        if (candidates.length) {
+          candidates.sort((a, b) => w[b].z - w[a].z);
+          this.closeWindow(candidates[0]);
+        }
+      }
+    };
+    document.addEventListener('keydown', this._keyHandler);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this._keyHandler);
+    if (this._welcomeTimer) clearTimeout(this._welcomeTimer);
+    if (this._onMove) document.removeEventListener('mousemove', this._onMove);
+    if (this._onUp) document.removeEventListener('mouseup', this._onUp);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.alertOpen && !prevState.alertOpen && this.alertOkRef.current) {
+      this.alertOkRef.current.focus();
+    }
+    if (this.state.windows.paint.open && this.canvasRef.current && !this._paintInited) {
+      const ctx = this.canvasRef.current.getContext('2d');
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, this.canvasRef.current.width, this.canvasRef.current.height);
+      this._paintInited = true;
+      this.buildPatterns();
+    }
+  }
+
+  buildPatterns() {
+    const defs = [
+      (c) => { c.fillStyle = '#000'; c.fillRect(0, 0, 8, 8); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; c.fillRect(0, 0, 1, 1); c.fillRect(4, 4, 1, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y += 2) for (let x = 0; x < 8; x += 2) c.fillRect(x, y, 1, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) if (((x >> 2) + (y >> 2)) % 2 === 0) c.fillRect(x, y, 1, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let x = 0; x < 8; x += 2) c.fillRect(x, 0, 1, 8); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y += 2) c.fillRect(0, y, 8, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let i = 0; i < 8; i++) c.fillRect(i, i, 1, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let i = 0; i < 8; i++) c.fillRect(7 - i, i, 1, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let x = 0; x < 8; x += 2) c.fillRect(x, 0, 1, 8); for (let y = 0; y < 8; y += 2) c.fillRect(0, y, 8, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) if ((x + y) % 3 === 0) c.fillRect(x, y, 1, 1); },
+      (c) => { c.fillStyle = '#000'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#fff'; for (let y = 0; y < 8; y += 2) for (let x = 0; x < 8; x += 2) c.fillRect(x, y, 1, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; c.fillRect(0, 0, 4, 4); c.fillRect(4, 4, 4, 4); },
+      (c) => { c.fillStyle = '#000'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#fff'; c.fillRect(2, 2, 4, 4); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) if ((x * 3 + y * 5) % 7 === 0) c.fillRect(x, y, 1, 1); },
+      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 1; y < 8; y += 3) c.fillRect(0, y, 8, 1); for (let x = 1; x < 8; x += 3) c.fillRect(x, 0, 1, 8); }
+    ];
+    this.patternCanvases = defs.map((draw) => {
+      const cv = document.createElement('canvas');
+      cv.width = 8; cv.height = 8;
+      draw(cv.getContext('2d'));
+      return cv;
+    });
+    this.forceUpdate();
+  }
+
+  getFillStyle(ctx) {
+    const i = this.state.patternIndex;
+    if (i === 0) return '#000';
+    if (i === 1) return '#fff';
+    if (this.patternCanvases && this.patternCanvases[i]) return ctx.createPattern(this.patternCanvases[i], 'repeat');
+    return '#000';
+  }
+
+  dismissWelcome = () => {
+    if (this.state.stage !== 'welcome') return;
+    try { sessionStorage.setItem('sofiaOS_welcomeShown', '1'); } catch (e) {}
+    if (this._welcomeTimer) clearTimeout(this._welcomeTimer);
+    this.setState({ stage: 'desktop' });
+  };
+
+  handleWelcomeKey = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.dismissWelcome(); }
+  };
+
+  toggleMenu = (key) => {
+    this.setState((s) => ({ openMenu: s.openMenu === key ? null : key }));
+  };
+
+  closeMenus = () => this.setState({ openMenu: null });
+
+  openWindow = (key) => {
+    this.setState((s) => {
+      const z = s.zTop + 1;
+      return { windows: { ...s.windows, [key]: { open: true, z } }, zTop: z, openMenu: null };
+    });
+  };
+
+  closeWindow = (key) => {
+    this.setState((s) => ({ windows: { ...s.windows, [key]: { ...s.windows[key], open: false } } }));
+  };
+
+  focusWindow = (key) => {
+    this.setState((s) => {
+      const z = s.zTop + 1;
+      return { windows: { ...s.windows, [key]: { ...s.windows[key], z } }, zTop: z };
+    });
+  };
+
+  openPortfolio = () => this.openWindow('portfolio');
+  closePortfolio = () => this.closeWindow('portfolio');
+  focusPortfolio = () => this.focusWindow('portfolio');
+
+  openCV = () => this.openWindow('cv');
+  closeCV = () => this.closeWindow('cv');
+  focusCV = () => this.focusWindow('cv');
+
+  openPaint = () => this.openWindow('paint');
+  closePaint = () => this.closeWindow('paint');
+  focusPaint = () => this.focusWindow('paint');
+
+  openTrash = () => this.openWindow('trash');
+  closeTrash = () => this.closeWindow('trash');
+  focusTrash = () => this.focusWindow('trash');
+
+  goSection = (id) => {
+    this.openWindow('portfolio');
+    setTimeout(() => {
+      const c = this.portfolioScrollRef.current;
+      if (!c) return;
+      const el = c.querySelector('#' + id);
+      if (el) c.scrollTop = el.offsetTop - 16;
+    }, 90);
+  };
+
+  startDragFolder = (e) => {
+    e.preventDefault();
+    this._dragOrig = { ...this.state.folder };
+    this._dragStart = { x: e.clientX, y: e.clientY };
+    this._onMove = (ev) => this.onDragFolderMove(ev);
+    this._onUp = (ev) => this.onDragFolderUp(ev);
+    document.addEventListener('mousemove', this._onMove);
+    document.addEventListener('mouseup', this._onUp);
+  };
+
+  onDragFolderMove = (ev) => {
+    const dx = ev.clientX - this._dragStart.x;
+    const dy = ev.clientY - this._dragStart.y;
+    let nx = this._dragOrig.x + dx;
+    let ny = this._dragOrig.y + dy;
+    const maxX = Math.max(16, window.innerWidth - 120);
+    const maxY = Math.max(16, window.innerHeight - 140);
+    nx = Math.max(16, Math.min(nx, maxX));
+    ny = Math.max(16, Math.min(ny, maxY));
+    this.setState({ folder: { x: nx, y: ny } });
+    const trashEl = document.getElementById('sofia-os-trash');
+    if (trashEl) {
+      const r = trashEl.getBoundingClientRect();
+      const over = ev.clientX >= r.left - 12 && ev.clientX <= r.right + 12 && ev.clientY >= r.top - 12 && ev.clientY <= r.bottom + 12;
+      if (over !== this.state.trashHover) this.setState({ trashHover: over });
+    }
+  };
+
+  onDragFolderUp = () => {
+    document.removeEventListener('mousemove', this._onMove);
+    document.removeEventListener('mouseup', this._onUp);
+    if (this.state.trashHover) {
+      this.setState({ folder: this._dragOrig, trashHover: false, alertOpen: true });
+    } else {
+      this.setState({ trashHover: false });
+    }
+  };
+
+  closeAlert = () => this.setState({ alertOpen: false });
+
+  setPaintTool = (tool) => this.setState({ paintTool: tool });
+  setPattern = (i) => this.setState({ patternIndex: i });
+  setStrokeWidth = (w) => this.setState({ strokeWidth: w });
+
+  getPoint(e) {
+    const rect = this.canvasRef.current.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  paintDown = (e) => {
+    const { x, y } = this.getPoint(e);
+    const ctx = this.canvasRef.current.getContext('2d');
+    const tool = this.state.paintTool;
+    this._paintStart = { x, y };
+    this._paintDrawing = true;
+    if (tool === 'pencil' || tool === 'brush' || tool === 'eraser') {
+      ctx.beginPath();
+      ctx.lineWidth = tool === 'pencil' ? 1 : this.state.strokeWidth * (tool === 'eraser' ? 3 : 1.6);
+      ctx.strokeStyle = tool === 'eraser' ? '#fff' : '#000';
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + 0.1, y + 0.1);
+      ctx.stroke();
+      this.setState({ paintDirty: true });
+    } else if (tool === 'spray') {
+      this.sprayAt(ctx, x, y);
+      this.setState({ paintDirty: true });
+    } else if (tool === 'bucket') {
+      ctx.fillStyle = this.getFillStyle(ctx);
+      ctx.fillRect(0, 0, this.canvasRef.current.width, this.canvasRef.current.height);
+      this._paintDrawing = false;
+      this.setState({ paintDirty: true });
+    } else if (tool === 'text') {
+      this._paintDrawing = false;
+      const txt = window.prompt('Text:');
+      if (txt) {
+        ctx.fillStyle = '#000';
+        ctx.font = '16px monospace';
+        ctx.fillText(txt, x, y);
+        this.setState({ paintDirty: true });
+      }
+    }
+  };
+
+  sprayAt(ctx, x, y) {
+    const r = this.state.strokeWidth * 3 + 4;
+    ctx.fillStyle = '#000';
+    for (let i = 0; i < 8; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const d = Math.random() * r;
+      ctx.fillRect(x + Math.cos(a) * d, y + Math.sin(a) * d, 1, 1);
+    }
+  }
+
+  paintMove = (e) => {
+    if (!this._paintDrawing) return;
+    const { x, y } = this.getPoint(e);
+    const ctx = this.canvasRef.current.getContext('2d');
+    const tool = this.state.paintTool;
+    if (tool === 'pencil' || tool === 'brush' || tool === 'eraser') {
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    } else if (tool === 'spray') {
+      this.sprayAt(ctx, x, y);
+    }
+  };
+
+  paintUp = (e) => {
+    if (!this._paintDrawing) return;
+    this._paintDrawing = false;
+    const { x, y } = this.getPoint(e);
+    const ctx = this.canvasRef.current.getContext('2d');
+    const tool = this.state.paintTool;
+    const sx = this._paintStart.x, sy = this._paintStart.y;
+    if (tool === 'line') {
+      ctx.beginPath();
+      ctx.lineWidth = this.state.strokeWidth;
+      ctx.strokeStyle = '#000';
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      this.setState({ paintDirty: true });
+    } else if (tool === 'rect') {
+      ctx.lineWidth = this.state.strokeWidth;
+      ctx.strokeStyle = '#000';
+      ctx.strokeRect(sx, sy, x - sx, y - sy);
+      this.setState({ paintDirty: true });
+    } else if (tool === 'rectFilled') {
+      ctx.fillStyle = this.getFillStyle(ctx);
+      ctx.fillRect(sx, sy, x - sx, y - sy);
+      this.setState({ paintDirty: true });
+    } else if (tool === 'oval' || tool === 'ovalFilled') {
+      const cx = (sx + x) / 2, cy = (sy + y) / 2;
+      const rx = Math.abs(x - sx) / 2, ry = Math.abs(y - sy) / 2;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, Math.max(rx, 0.5), Math.max(ry, 0.5), 0, 0, Math.PI * 2);
+      if (tool === 'ovalFilled') {
+        ctx.fillStyle = this.getFillStyle(ctx);
+        ctx.fill();
+      } else {
+        ctx.lineWidth = this.state.strokeWidth;
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
+      }
+      this.setState({ paintDirty: true });
+    }
+  };
+
+  clearPaint = () => {
+    const canvas = this.canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    this.setState({ paintDirty: false });
+  };
+
+  savePaint = () => {
+    const canvas = this.canvasRef.current;
+    if (!canvas) return;
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sofia-os-drawing.png';
+    a.click();
+  };
+
+  buildItemStyle(disabled) {
+    return 'display:block;width:100%;text-align:left;background:none;border:none;padding:7px 16px;font-size:13px;font-family:"Work Sans",sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
+  }
+
+  menuBtnStyle(active) {
+    return 'background:' + (active ? '#000' : 'none') + ';color:' + (active ? '#fff' : '#000') + ';border:none;font-weight:600;font-size:14px;padding:4px 12px;cursor:pointer;';
+  }
+
+  renderVals() {
+    const s = this.state;
+    const itemStyle = this.buildItemStyle(false);
+    const itemStyleDisabled = this.buildItemStyle(true);
+
+    const menus = [
+      {
+        key: 'file', label: 'File', open: s.openMenu === 'file',
+        btnStyle: this.menuBtnStyle(s.openMenu === 'file'),
+        toggle: () => this.toggleMenu('file'),
+        items: [
+          { isButton: true, sep: false, label: 'Open Portfolio', action: this.openPortfolio, itemStyle },
+          { sep: true },
+          { isButton: true, sep: false, label: 'Open CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, sep: false, label: 'Download CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { sep: true },
+          { isButton: true, sep: false, label: 'Save Image', disabled: !s.windows.paint.open, action: this.savePaint, itemStyle: s.windows.paint.open ? itemStyle : itemStyleDisabled }
+        ]
+      },
+      {
+        key: 'edit', label: 'Edit', open: s.openMenu === 'edit',
+        btnStyle: this.menuBtnStyle(s.openMenu === 'edit'),
+        toggle: () => this.toggleMenu('edit'),
+        items: [
+          { isButton: true, sep: false, label: 'Undo', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, sep: false, label: 'Cut', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, sep: false, label: 'Copy', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { isButton: true, sep: false, label: 'Paste', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
+          { sep: true },
+          { isButton: true, sep: false, label: 'Clear', disabled: !s.windows.paint.open, action: this.clearPaint, itemStyle: s.windows.paint.open ? itemStyle : itemStyleDisabled }
+        ]
+      },
+      {
+        key: 'work', label: 'Work', open: s.openMenu === 'work',
+        btnStyle: this.menuBtnStyle(s.openMenu === 'work'),
+        toggle: () => this.toggleMenu('work'),
+        items: [
+          { isLink: true, sep: false, label: '01  Introducing Agentic AI', href: 'Case Study 01.dc.html', itemStyle },
+          { isLink: true, sep: false, label: '02  Expanding eSignatures Beyond the Lease', href: 'Case Study 02.dc.html', itemStyle },
+          { isLink: true, sep: false, label: '03  Automating the Coordination, Not the Decision', href: 'Case Study 03.dc.html', itemStyle },
+          { sep: true },
+          { isButton: true, sep: false, label: 'Anthesis', action: () => this.goSection('anthesis-window'), itemStyle }
+        ]
+      },
+      {
+        key: 'view', label: 'View', open: s.openMenu === 'view',
+        btnStyle: this.menuBtnStyle(s.openMenu === 'view'),
+        toggle: () => this.toggleMenu('view'),
+        items: [
+          { isButton: true, sep: false, label: 'Home', action: () => this.goSection('hero-window'), itemStyle },
+          { isButton: true, sep: false, label: 'Selected Work', action: () => this.goSection('selected-work'), itemStyle },
+          { isButton: true, sep: false, label: 'Capabilities', action: () => this.goSection('capabilities-window'), itemStyle },
+          { isButton: true, sep: false, label: 'Anthesis', action: () => this.goSection('anthesis-window'), itemStyle }
+        ]
+      },
+      {
+        key: 'window', label: 'Window', open: s.openMenu === 'window',
+        btnStyle: this.menuBtnStyle(s.openMenu === 'window'),
+        toggle: () => this.toggleMenu('window'),
+        items: [
+          { isButton: true, sep: false, label: 'Portfolio', action: this.openPortfolio, itemStyle },
+          { isButton: true, sep: false, label: 'Paint', action: this.openPaint, itemStyle }
+        ]
+      }
+    ];
+
+    const winBase = 'position:absolute;background:#fff;border:2px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.35);display:flex;flex-direction:column;';
+
+    const toolBtn = (tool) => 'width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:1px solid #000;background:' + (s.paintTool === tool ? '#000' : '#fff') + ';cursor:pointer;padding:0;';
+    const toolColor = (tool) => s.paintTool === tool ? '#fff' : '#000';
+    const strokeBtn = (w) => 'width:100%;height:14px;border:1px solid #000;background:#fff;display:flex;align-items:center;padding:0 4px;cursor:pointer;margin-top:2px;' + (s.strokeWidth === w ? 'background:#eee;' : '');
+    const patternBtn = (i) => 'width:20px;height:20px;flex:none;border:1px solid #000;padding:0;cursor:pointer;' + (s.patternIndex === i ? 'outline:2px solid #000;outline-offset:1px;' : '');
+    const patternTiles = this.patternCanvases ? this.patternCanvases.map((cv, i) => ({ i, url: cv.toDataURL(), style: patternBtn(i), action: () => this.setPattern(i) })) : [];
+
+    return {
+      showWelcome: s.stage === 'welcome',
+      showDesktop: s.stage === 'desktop',
+      dismissWelcome: this.dismissWelcome,
+      handleWelcomeKey: this.handleWelcomeKey,
+      menus,
+      closeMenus: this.closeMenus,
+      folderX: s.folder.x,
+      folderY: s.folder.y,
+      startDragFolder: this.startDragFolder,
+      openPortfolio: this.openPortfolio,
+      trashBoxStyle: 'width:70px;height:56px;display:flex;align-items:center;justify-content:center;border:2px dashed ' + (s.trashHover ? '#000' : 'transparent') + ';',
+      openTrash: this.openTrash,
+      showDesktopIcons: !s.windows.portfolio.open,
+      portfolioOpen: s.windows.portfolio.open,
+      portfolioWinStyle: 'position:absolute;left:0;top:0;width:100%;height:100%;background:#fff;display:flex;flex-direction:column;z-index:' + (100 + s.windows.portfolio.z) + ';',
+      closePortfolio: this.closePortfolio,
+      focusPortfolio: this.focusPortfolio,
+      portfolioScrollRef: this.portfolioScrollRef,
+      cvOpen: s.windows.cv.open,
+      cvWinStyle: winBase + 'left:30%;top:80px;width:420px;height:360px;z-index:' + (100 + s.windows.cv.z) + ';',
+      closeCV: this.closeCV,
+      focusCV: this.focusCV,
+      trashOpen: s.windows.trash.open,
+      trashWinStyle: winBase + 'left:38%;top:120px;width:320px;height:240px;z-index:' + (100 + s.windows.trash.z) + ';',
+      closeTrash: this.closeTrash,
+      focusTrash: this.focusTrash,
+      paintOpen: s.windows.paint.open,
+      paintWinStyle: winBase + 'left:calc(50% - 380px);top:60px;width:760px;height:520px;max-width:92vw;max-height:82vh;z-index:' + (100 + s.windows.paint.z) + ';',
+      paintTitle: s.paintDirty ? 'Untitled*' : 'Untitled',
+      closePaint: this.closePaint,
+      focusPaint: this.focusPaint,
+      canvasRef: this.canvasRef,
+      paintDown: this.paintDown,
+      paintMove: this.paintMove,
+      paintUp: this.paintUp,
+      setToolPencil: () => this.setPaintTool('pencil'),
+      setToolBrush: () => this.setPaintTool('brush'),
+      setToolSpray: () => this.setPaintTool('spray'),
+      setToolEraser: () => this.setPaintTool('eraser'),
+      setToolText: () => this.setPaintTool('text'),
+      setToolBucket: () => this.setPaintTool('bucket'),
+      setToolLine: () => this.setPaintTool('line'),
+      setToolRect: () => this.setPaintTool('rect'),
+      setToolRectFilled: () => this.setPaintTool('rectFilled'),
+      setToolOval: () => this.setPaintTool('oval'),
+      setToolOvalFilled: () => this.setPaintTool('ovalFilled'),
+      btnPencil: toolBtn('pencil'), colPencil: toolColor('pencil'),
+      btnBrush: toolBtn('brush'), colBrush: toolColor('brush'),
+      btnSpray: toolBtn('spray'), colSpray: toolColor('spray'),
+      btnEraser: toolBtn('eraser'), colEraser: toolColor('eraser'),
+      btnText: toolBtn('text'), colText: toolColor('text'),
+      btnBucket: toolBtn('bucket'), colBucket: toolColor('bucket'),
+      btnLine: toolBtn('line'), colLine: toolColor('line'),
+      btnRect: toolBtn('rect'), colRect: toolColor('rect'),
+      btnRectFilled: toolBtn('rectFilled'), colRectFilled: toolColor('rectFilled'),
+      btnOval: toolBtn('oval'), colOval: toolColor('oval'),
+      btnOvalFilled: toolBtn('ovalFilled'), colOvalFilled: toolColor('ovalFilled'),
+      strokeBtn1: strokeBtn(1), strokeBtn2: strokeBtn(2), strokeBtn3: strokeBtn(4), strokeBtn4: strokeBtn(7),
+      setStroke1: () => this.setStrokeWidth(1), setStroke2: () => this.setStrokeWidth(2), setStroke3: () => this.setStrokeWidth(4), setStroke4: () => this.setStrokeWidth(7),
+      patternTiles,
+      clearPaint: this.clearPaint,
+      savePaint: this.savePaint,
+      stopBubble: (e) => e.stopPropagation(),
+      alertOpen: s.alertOpen,
+      alertOkRef: this.alertOkRef,
+      closeAlert: this.closeAlert
+    };
+  }
+}
+</script>
+</body>
+</html>

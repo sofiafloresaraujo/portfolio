@@ -92,7 +92,7 @@
       <div class="frame">
         <label class="shotwrap" style="overflow:hidden;height:420px;">
           <input type="checkbox">
-          <img class="shot" src="uploads/Property 1=Premium.svg" alt="Agentic AI landing experience" style="width:100%;object-fit:cover;object-position:top;">
+          <img class="shot" src="uploads/Property%201%3DPremium.svg" alt="Agentic AI landing experience" style="width:100%;object-fit:cover;object-position:top;">
           <span class="viewlabel">[ VIEW ORIGINAL ]</span>
         </label>
       </div>
@@ -156,7 +156,7 @@
       <p style="margin:48px 0 0;font-weight:600;font-size:17px;line-height:1.4;max-width:700px;">I mapped the system before designing the intervention.</p>
       <div class="frame" style="margin-top:32px;">
         <div style="height:400px;overflow:hidden;border:2px solid #000;">
-          <img src="uploads/Onboarding Agent (Phase2).jpg" alt="As-is onboarding journey map" style="width:148%;display:block;">
+          <img src="uploads/Onboarding%20Agent%20(Phase2).jpg" alt="As-is onboarding journey map" style="width:148%;display:block;">
         </div>
       </div>
       <p style="margin:20px 0 0;font-size:13px;line-height:1.6;color:#333;max-width:700px;">Mapping the existing experience helped expose where complexity already existed before introducing a new AI interaction model.</p>
@@ -214,7 +214,7 @@
         <div class="frame" style="border-top:2px solid #000;border-left:none;border-right:none;border-bottom:none;">
           <label class="shotwrap">
             <input type="checkbox">
-            <img class="shot" src="uploads/Landing Page _ Modal.png" alt="Activation confirmation modal" style="width:100%;">
+            <img class="shot" src="uploads/Landing%20Page%20_%20Modal.png" alt="Activation confirmation modal" style="width:100%;">
             <span class="viewlabel">[ VIEW ORIGINAL ]</span>
           </label>
         </div>
@@ -321,10 +321,10 @@ class Component extends DCLogic {
       {
         key: 'file', label: 'File', open: s.openMenu === 'file', btnStyle: this.menuBtnStyle(s.openMenu === 'file'), toggle: () => this.toggleMenu('file'),
         items: [
-          { isLink: true, href: 'index.html', label: 'Open Portfolio', itemStyle },
+          { isLink: true, href: 'portfolio.html', label: 'Open Portfolio', itemStyle },
           { sep: true },
-          { isButton: true, label: 'Open CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Download CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled }
+          { isLink: true, href: 'assets/Sofia-Flores-Resume.pdf', target: '_blank', label: 'Open CV', itemStyle },
+          { isLink: true, href: 'assets/Sofia-Flores-Resume.pdf', download: 'Sofia-Flores-Resume.pdf', label: 'Download CV', itemStyle }
         ]
       },
       {
@@ -343,22 +343,22 @@ class Component extends DCLogic {
           { isLink: true, href: 'case-02.html', label: '02  Expanding eSignatures Beyond the Lease', itemStyle },
           { isLink: true, href: 'case-03.html', label: '03  Automating the Coordination, Not the Decision', itemStyle },
           { sep: true },
-          { isLink: true, href: 'index.html#anthesis-window', label: 'Anthesis', itemStyle }
+          { isLink: true, href: 'portfolio.html#anthesis-window', label: 'Anthesis', itemStyle }
         ]
       },
       {
         key: 'view', label: 'View', open: s.openMenu === 'view', btnStyle: this.menuBtnStyle(s.openMenu === 'view'), toggle: () => this.toggleMenu('view'),
         items: [
-          { isLink: true, href: 'index.html#hero-window', label: 'Home', itemStyle },
-          { isLink: true, href: 'index.html#selected-work', label: 'Selected Work', itemStyle },
-          { isLink: true, href: 'index.html#capabilities-window', label: 'Capabilities', itemStyle },
-          { isLink: true, href: 'index.html#anthesis-window', label: 'Anthesis', itemStyle }
+          { isLink: true, href: 'portfolio.html#hero-window', label: 'Home', itemStyle },
+          { isLink: true, href: 'portfolio.html#selected-work', label: 'Selected Work', itemStyle },
+          { isLink: true, href: 'portfolio.html#capabilities-window', label: 'Capabilities', itemStyle },
+          { isLink: true, href: 'portfolio.html#anthesis-window', label: 'Anthesis', itemStyle }
         ]
       },
       {
         key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
         items: [
-          { isLink: true, href: 'index.html', label: 'Portfolio', itemStyle },
+          { isLink: true, href: 'portfolio.html', label: 'Portfolio', itemStyle },
           { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
         ]
       }

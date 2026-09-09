@@ -92,7 +92,7 @@
       <div class="frame">
         <label class="shotwrap" style="overflow:hidden;height:400px;display:block;position:relative;cursor:pointer;">
           <input type="checkbox">
-          <img class="shot" src="uploads/Settings _ Global Approval.png" alt="Rental Owners Renewal Approval Settings, showing global approval policy and property list" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+          <img class="shot" src="uploads/Settings%20_%20Global%20Approval.png" alt="Rental Owners Renewal Approval Settings, showing global approval policy and property list" style="width:100%;height:100%;object-fit:cover;object-position:top;">
           <span class="viewlabel">[ VIEW ORIGINAL ]</span>
         </label>
       </div>
@@ -174,7 +174,7 @@
       <div class="frame" style="margin-top:24px;">
         <label class="shotwrap" style="overflow:hidden;height:460px;display:block;position:relative;cursor:pointer;">
           <input type="checkbox">
-          <img class="shot" src="uploads/AI settings _ Renewal Offers.png" alt="Lumina AI settings, Lease Agent tab, showing rental owner approvals for renewal offers, approval exceptions and automated tenant outreach" style="width:100%;object-fit:cover;object-position:top;">
+          <img class="shot" src="uploads/AI%20settings%20_%20Renewal%20Offers.png" alt="Lumina AI settings, Lease Agent tab, showing rental owner approvals for renewal offers, approval exceptions and automated tenant outreach" style="width:100%;object-fit:cover;object-position:top;">
           <span class="viewlabel">[ VIEW ORIGINAL ]</span>
         </label>
       </div>
@@ -256,7 +256,7 @@
       <div class="frame" style="margin-top:24px;">
         <label class="shotwrap" style="overflow:hidden;height:460px;display:block;position:relative;cursor:pointer;">
           <input type="checkbox">
-          <img class="shot" src="uploads/Screenshot 2026-09-09 at 17.51.49.png" alt="Lease management table, Not started tab, showing days left, approval status and rental owner per lease" style="width:100%;object-fit:cover;object-position:top;">
+          <img class="shot" src="uploads/Screenshot%202026-09-09%20at%2017.51.49.png" alt="Lease management table, Not started tab, showing days left, approval status and rental owner per lease" style="width:100%;object-fit:cover;object-position:top;">
           <span class="viewlabel">[ VIEW ORIGINAL ]</span>
         </label>
       </div>
@@ -297,7 +297,7 @@
           <div class="ss" style="font-size:9px;color:#999;margin-bottom:8px;">NEEDS REVIEW</div>
           <label class="shotwrap" style="overflow:hidden;height:300px;display:block;position:relative;cursor:pointer;border:1px solid #444;">
             <input type="checkbox">
-            <img class="shot" src="uploads/Generate renewal offers.png" alt="Generate renewal offers modal, showing AI-generated offers awaiting rental owner review" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+            <img class="shot" src="uploads/Generate%20renewal%20offers.png" alt="Generate renewal offers modal, showing AI-generated offers awaiting rental owner review" style="width:100%;height:100%;object-fit:cover;object-position:top;">
             <span class="viewlabel">[ VIEW ORIGINAL ]</span>
           </label>
           <p style="margin:12px 0 0;font-size:13px;line-height:1.5;color:#ccc;">AI has generated the offer, but the workflow cannot continue until the owner responds.</p>
@@ -306,7 +306,7 @@
           <div class="ss" style="font-size:9px;color:#999;margin-bottom:8px;">OWNER ACCEPTED</div>
           <label class="shotwrap" style="overflow:hidden;height:300px;display:block;position:relative;cursor:pointer;border:1px solid #444;">
             <input type="checkbox">
-            <img class="shot" src="uploads/Generate renewal offersbanner.png" alt="Generate renewal offers modal, showing lease renewal terms accepted by the rental owner" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+            <img class="shot" src="uploads/Generate%20renewal%20offersbanner.png" alt="Generate renewal offers modal, showing lease renewal terms accepted by the rental owner" style="width:100%;height:100%;object-fit:cover;object-position:top;">
             <span class="viewlabel">[ VIEW ORIGINAL ]</span>
           </label>
           <p style="margin:12px 0 0;font-size:13px;line-height:1.5;color:#ccc;">The owner's decision changes the workflow state and allows the process to continue.</p>
@@ -356,10 +356,10 @@ class Component extends DCLogic {
       {
         key: 'file', label: 'File', open: s.openMenu === 'file', btnStyle: this.menuBtnStyle(s.openMenu === 'file'), toggle: () => this.toggleMenu('file'),
         items: [
-          { isLink: true, href: 'index.html', label: 'Open Portfolio', itemStyle },
+          { isLink: true, href: 'portfolio.html', label: 'Open Portfolio', itemStyle },
           { sep: true },
-          { isButton: true, label: 'Open CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Download CV', disabled: true, action: () => {}, itemStyle: itemStyleDisabled }
+          { isLink: true, href: 'assets/Sofia-Flores-Resume.pdf', target: '_blank', label: 'Open CV', itemStyle },
+          { isLink: true, href: 'assets/Sofia-Flores-Resume.pdf', download: 'Sofia-Flores-Resume.pdf', label: 'Download CV', itemStyle }
         ]
       },
       {
@@ -378,22 +378,22 @@ class Component extends DCLogic {
           { isLink: true, href: 'case-02.html', label: '02  Expanding eSignatures Beyond the Lease', itemStyle },
           { isLink: true, href: 'case-03.html', label: '03  Automating the Coordination, Not the Decision', itemStyle },
           { sep: true },
-          { isLink: true, href: 'index.html#anthesis-window', label: 'Anthesis', itemStyle }
+          { isLink: true, href: 'portfolio.html#anthesis-window', label: 'Anthesis', itemStyle }
         ]
       },
       {
         key: 'view', label: 'View', open: s.openMenu === 'view', btnStyle: this.menuBtnStyle(s.openMenu === 'view'), toggle: () => this.toggleMenu('view'),
         items: [
-          { isLink: true, href: 'index.html#hero-window', label: 'Home', itemStyle },
-          { isLink: true, href: 'index.html#selected-work', label: 'Selected Work', itemStyle },
-          { isLink: true, href: 'index.html#capabilities-window', label: 'Capabilities', itemStyle },
-          { isLink: true, href: 'index.html#anthesis-window', label: 'Anthesis', itemStyle }
+          { isLink: true, href: 'portfolio.html#hero-window', label: 'Home', itemStyle },
+          { isLink: true, href: 'portfolio.html#selected-work', label: 'Selected Work', itemStyle },
+          { isLink: true, href: 'portfolio.html#capabilities-window', label: 'Capabilities', itemStyle },
+          { isLink: true, href: 'portfolio.html#anthesis-window', label: 'Anthesis', itemStyle }
         ]
       },
       {
         key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
         items: [
-          { isLink: true, href: 'index.html', label: 'Portfolio', itemStyle },
+          { isLink: true, href: 'portfolio.html', label: 'Portfolio', itemStyle },
           { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
         ]
       }

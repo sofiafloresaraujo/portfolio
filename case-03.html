@@ -29,17 +29,29 @@
   .shotwrap input { position:absolute; opacity:0; width:0; height:0; }
   .shotwrap input:focus-visible ~ .shot { outline:3px solid #000; outline-offset:2px; }
   .viewlabel { position:absolute; bottom:8px; right:10px; font-family:'Silkscreen',monospace; font-size:8px; background:#fff; padding:2px 6px; border:1px solid #000; pointer-events:none; opacity:.85; }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     html, body { overflow-x: hidden; }
-    div[style*="padding:56px"] { padding: 8px !important; padding-top: 58px !important; }
-    div[style*="padding:56px"] > div[style*="max-width:1240px"] { width: 100% !important; max-width: 100% !important; }
-    div[style*="72px"] { padding-left: 16px !important; padding-right: 16px !important; }
-    div[style*="grid-template-columns:1fr 1fr"], div[style*="grid-template-columns:1fr 1fr 1fr"], div[style*="grid-template-columns:1fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    div[style*="grid-template-columns:1fr 1fr"] > div, div[style*="grid-template-columns:1fr 1fr 1fr"] > div, div[style*="grid-template-columns:1fr 1fr 1fr 1fr"] > div { border-right: none !important; border-bottom: 2px solid #000; }
-    div[style*="border:1px solid #444"] { margin-bottom: 8px; }
+    .case-page-shell { padding: 8px !important; padding-top: 58px !important; }
+    .case-top-nav, .case-window { width: 100% !important; max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; box-sizing: border-box !important; }
+    .case-top-nav { padding: 0 8px; margin-top: 8px; }
+    .case-top-nav a { font-size: 12px !important; padding: 7px 10px !important; }
+    .case-section { padding-left: 16px !important; padding-right: 16px !important; }
+    .case-actor-grid, .case-decision-grid, .case-grid-3, .case-grid-2, .case-stop-grid { grid-template-columns: 1fr !important; }
+    .case-actor-grid > div, .case-grid-3 > div { border-right: none !important; border-bottom: 2px solid #000; }
+    .case-decision-grid > div { margin-bottom: 12px; }
     .frame { padding: 14px !important; }
+    .case-image-frame { height: auto !important; min-height: 0 !important; }
+    .case-image-frame img { height: auto !important; max-height: none !important; }
+    .case-workflow-row { flex-direction: column !important; align-items: stretch !important; gap: 0 !important; }
+    .case-workflow-row .tag { min-width: 0 !important; width: 100% !important; margin: 0 !important; }
+    .case-flow-arrow { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; height: auto !important; margin: 12px 0 !important; position: static !important; transform: none !important; font-size: 0 !important; }
+    .case-flow-arrow::after { content: "↓"; font-size: 18px; line-height: 1; }
+    .case-annotations-row { flex-direction: column !important; }
+    .case-annotations-row > div { min-width: 0 !important; }
     h1 { font-size: 30px !important; }
-    div[style*="max-width:1240px"][style*="justify-content:space-between"] a { font-size: 12px !important; padding: 7px 10px !important; }
+    .case-window { position: relative; }
+    .case-right-stripes { display: block !important; }
+    .case-next-link { padding: 32px 16px !important; }
   }
   @media (max-width: 480px) {
     .sofia-menu-bar { padding: 0 6px !important; }
@@ -68,22 +80,23 @@
   <span class="ss" style="margin-left:auto;font-size:11px;">SOFIA OS</span>
 </div>
 
-<div style="font-family:'Work Sans',Helvetica,Arial,sans-serif;padding:56px;padding-top:82px;background:conic-gradient(#000 90deg,#fff 90deg 180deg,#000 180deg 270deg,#fff 270deg) 0 0/2px 2px;min-height:100vh;" onClick="{{ closeMenus }}">
+<div class="case-page-shell" style="font-family:'Work Sans',Helvetica,Arial,sans-serif;padding:56px;padding-top:82px;background:conic-gradient(#000 90deg,#fff 90deg 180deg,#000 180deg 270deg,#fff 270deg) 0 0/2px 2px;min-height:100vh;" onClick="{{ closeMenus }}">
 
-  <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+  <div class="case-top-nav" style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
     <a href="case-studies.html" class="px" style="display:inline-flex;align-items:center;gap:8px;border:2px solid #000;border-radius:11px;background:#fff;padding:9px 16px;box-shadow:2px 2px 0 #000;font-weight:600;font-size:14px;">◂ Case Studies</a>
     <div class="ss" style="font-size:11px;background:#000;color:#fff;padding:6px 12px;">CASE 03 / 03</div>
   </div>
 
-  <div style="max-width:1240px;margin:0 auto;border:2px solid #000;background:#fff;box-shadow:8px 8px 0 rgba(0,0,0,.35);">
-    <div style="position:relative;height:28px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;">
+  <div class="case-window" style="max-width:1240px;margin:0 auto;border:2px solid #000;background:#fff;box-shadow:8px 8px 0 rgba(0,0,0,.35);">
+    <div class="case-right-stripes" aria-hidden="true" style="display:none;position:absolute;top:0;right:0;bottom:0;width:10px;z-index:5;pointer-events:none;background:repeating-linear-gradient(to bottom,#000 0,#000 2px,transparent 2px,transparent 4px);"></div>
+    <div class="case-window-grip" style="position:relative;height:28px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;">
       <div style="position:absolute;inset:5px 8px;background:repeating-linear-gradient(#000 0 1px,transparent 1px 3px);"></div>
 <a href="index.html" aria-label="Close window and return to desktop" title="Close window and return to desktop" style="position:absolute;left:8px;top:6px;width:13px;height:13px;border:2px solid #000;background:#fff;display:block;cursor:pointer;"></a>
       <span class="px" style="position:relative;background:#fff;padding:0 12px;font-weight:600;font-size:13px;white-space:nowrap;">Automating the Coordination, Not the Decision</span>
     </div>
 
     <!-- HERO -->
-    <div style="padding:64px 72px 40px;">
+    <div class="case-section" style="padding:64px 72px 40px;">
       <div class="ss" style="font-size:12px;color:#333;">03 / PRODUCT DESIGN · AI · B2B SAAS · DECISION SYSTEMS</div>
       <h1 class="px" style="margin:20px 0 0;font-weight:700;font-size:40px;line-height:1.2;max-width:820px;">Automating the Coordination, Not the Decision</h1>
       <p style="margin:18px 0 0;font-size:18px;line-height:1.6;color:#111;max-width:680px;">Property managers were coordinating rental-owner renewal approvals through emails, calls and manual follow-up. I explored how AI could move the process forward without taking the final decision away from the owner.</p>
@@ -95,9 +108,9 @@
       </div>
       <p class="mono" style="margin:20px 0 0;font-size:11.5px;color:#888;font-style:italic;">Some product details and visuals have been simplified or omitted to protect confidential work.</p>
     </div>
-    <div style="padding:0 72px 56px;">
-      <div class="frame">
-        <label class="shotwrap" style="overflow:hidden;height:400px;display:block;position:relative;cursor:pointer;">
+    <div class="case-section" style="padding:0 72px 56px;">
+      <div class="frame case-hero-frame">
+        <label class="shotwrap case-image-frame" style="overflow:hidden;height:400px;display:block;position:relative;cursor:pointer;">
           <input type="checkbox">
           <img class="shot" src="uploads/Settings%20_%20Global%20Approval.png" alt="Rental Owners Renewal Approval Settings, showing global approval policy and property list" style="width:100%;height:100%;object-fit:cover;object-position:top;">
           <span class="viewlabel">[ VIEW ORIGINAL ]</span>
@@ -106,22 +119,22 @@
     </div>
 
     <!-- THE PROBLEM -->
-    <div style="padding:48px 72px;background:#f2f2f0;border-top:2px solid #000;">
+    <div class="case-section" style="padding:48px 72px;background:#f2f2f0;border-top:2px solid #000;">
       <div class="lbl">THE PROBLEM</div>
       <p style="margin:18px 0 0;font-size:16px;line-height:1.6;color:#111;max-width:700px;">Renewal approvals often happened outside Buildium. Property managers followed up with rental owners by email or phone, tracked responses manually and sometimes created their own rules to keep renewals moving.</p>
       <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:28px;">
-        <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
+        <div class="case-workflow-row" style="display:flex;align-items:center;justify-content:center;gap:10px;">
           <div class="tag" style="font-size:9px;padding:10px 14px;min-width:120px;text-align:center;">PMC PREPARES RENEWAL</div>
-          <span style="font-size:16px;color:#999;">→</span>
+          <span class="case-flow-arrow" style="font-size:16px;color:#999;">→</span>
           <div class="tag" style="font-size:9px;padding:10px 14px;min-width:120px;text-align:center;">CONTACTS OWNER</div>
-          <span style="font-size:16px;color:#999;">→</span>
+          <span class="case-flow-arrow" style="font-size:16px;color:#999;">→</span>
           <div class="tag" style="font-size:9px;padding:10px 14px;min-width:120px;text-align:center;">WAITS</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
+        <div class="case-workflow-row" style="display:flex;align-items:center;justify-content:center;gap:10px;">
           <div class="tag" style="font-size:9px;padding:10px 14px;min-width:120px;text-align:center;">FOLLOWS UP</div>
-          <span style="font-size:16px;color:#999;">→</span>
+          <span class="case-flow-arrow" style="font-size:16px;color:#999;">→</span>
           <div class="tag" style="font-size:9px;padding:10px 14px;min-width:120px;text-align:center;">TRACKS STATUS OUTSIDE PRODUCT</div>
-          <span style="font-size:16px;color:#999;">→</span>
+          <span class="case-flow-arrow" style="font-size:16px;color:#999;">→</span>
           <div class="tag" style="font-size:9px;padding:10px 14px;min-width:120px;text-align:center;font-weight:700;background:#000;color:#fff;">MOVES RENEWAL FORWARD</div>
         </div>
       </div>
@@ -131,10 +144,10 @@
     </div>
 
     <!-- A MULTI-ACTOR WORKFLOW -->
-    <div style="padding:48px 72px;border-top:2px solid #000;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;">
       <div class="lbl">A MULTI-ACTOR WORKFLOW</div>
       <p style="margin:18px 0 0;font-size:16px;line-height:1.6;color:#111;max-width:700px;">This was not a single-user workflow. The property manager, rental owner, tenant, AI and the platform all had different roles.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border:2px solid #000;margin:22px auto 0;max-width:1120px;">
+      <div class="case-actor-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border:2px solid #000;margin:22px auto 0;max-width:1120px;">
         <div style="padding:26px 28px;border-right:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">PMC</div><p style="margin:10px 0 0;font-size:12.5px;line-height:1.5;">Prepares offers, configures approval rules, reviews status, follows up.</p></div>
         <div style="padding:26px 28px;border-right:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">AI</div><p style="margin:10px 0 0;font-size:12.5px;line-height:1.5;">Recommends, summarizes, drafts, tracks, reminds, moves the workflow forward.</p></div>
         <div style="padding:26px 28px;border-right:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">RENTAL OWNER</div><p style="margin:10px 0 0;font-size:12.5px;line-height:1.5;">Reviews, adjusts, approves, declines, authorizes.</p></div>
@@ -143,11 +156,11 @@
     </div>
 
     <!-- WHERE AI STOPS -->
-    <div style="padding:48px 72px;border-top:2px solid #000;background:#000;color:#fff;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;background:#000;color:#fff;">
       <div class="ss" style="font-size:10px;color:#aaa;">WHAT AI HANDLES, WHAT THE USER CONTROLS</div>
       <p style="margin:18px 0 0;font-weight:650;font-size:22px;line-height:1.4;color:#fff;max-width:700px;">"How much of the renewal process should AI handle before the decision needs to stay human?"</p>
       <div class="ss" style="font-size:9px;color:#aaa;margin-top:24px;">PRODUCT RESPONSIBILITY MODEL</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;">
+      <div class="case-decision-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;">
         <div style="border:1px solid #444;padding:18px 20px;">
           <div class="ss" style="font-size:10px;color:#aaa;">AI CAN</div>
           <ul style="margin:12px 0 0;padding:0 0 0 16px;font-size:13px;line-height:1.7;color:#ddd;">
@@ -175,17 +188,17 @@
     </div>
 
     <!-- SETTING THE BOUNDARIES -->
-    <div style="padding:48px 72px;border-top:2px solid #000;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;">
       <div class="lbl">SETTING THE BOUNDARIES</div>
       <p style="margin:18px 0 0;font-size:16px;line-height:1.6;color:#111;max-width:700px;">The settings had to make the approval boundary explicit: owner approval was required by default, with specific properties able to be excluded.</p>
-      <div class="frame" style="margin-top:24px;">
-        <label class="shotwrap" style="overflow:hidden;height:460px;display:block;position:relative;cursor:pointer;">
+      <div class="frame case-hero-frame">
+        <label class="shotwrap case-image-frame" style="overflow:hidden;height:460px;display:block;position:relative;cursor:pointer;">
           <input type="checkbox">
           <img class="shot" src="uploads/AI%20settings%20_%20Renewal%20Offers.png" alt="Lumina AI settings, Lease Agent tab, showing rental owner approvals for renewal offers, approval exceptions and automated tenant outreach" style="width:100%;object-fit:cover;object-position:top;">
           <span class="viewlabel">[ VIEW ORIGINAL ]</span>
         </label>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px;">
+      <div class="case-grid-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px;">
         <div style="border:2px solid #000;background:#f4f4f2;padding:14px 16px;"><div class="ss" style="font-size:9px;color:#555;">OWNER APPROVAL</div><p style="margin:8px 0 0;font-size:12.5px;line-height:1.5;">Required by default.</p></div>
         <div style="border:2px solid #000;background:#f4f4f2;padding:14px 16px;"><div class="ss" style="font-size:9px;color:#555;">EXCEPTIONS</div><p style="margin:8px 0 0;font-size:12.5px;line-height:1.5;">Specific properties can bypass the approval requirement.</p></div>
         <div style="border:2px solid #000;background:#f4f4f2;padding:14px 16px;"><div class="ss" style="font-size:9px;color:#555;">AUTOMATION</div><p style="margin:8px 0 0;font-size:12.5px;line-height:1.5;">Tenant outreach remains a separate choice.</p></div>
@@ -194,14 +207,14 @@
       <div class="ss" style="font-size:9px;color:#555;margin-top:32px;">DESIGN EXPLORATION</div>
       <div style="margin-top:16px;">
         <div class="ss" style="font-size:8.5px;color:#999;margin-bottom:8px;text-align:center;">EARLY · SETTINGS SOLUTIONS · ALTERNATIVE · ITERATIONS</div>
-        <div style="overflow:hidden;height:700px;border:1px solid #000;width:100%;">
+        <div class="case-image-frame" style="overflow:hidden;height:700px;border:1px solid #000;width:100%;">
           <img src="uploads/92276c5c-c312-40a5-b890-5c3f616923c1.png" alt="Settings solutions exploration board, multiple concept directions" style="width:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.05);display:block;">
         </div>
       </div>
     </div>
 
     <!-- WHAT CUSTOMERS CHALLENGED -->
-    <div style="padding:48px 72px;border-top:2px solid #000;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;">
       <div class="lbl">WHAT CUSTOMERS CHALLENGED</div>
 
       <div style="margin-top:28px;">
@@ -228,7 +241,7 @@
     </div>
 
     <!-- DESIGN REVIEW -->
-    <div style="padding:48px 72px;border-top:2px solid #000;background:#f4f4f2;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;background:#f4f4f2;">
       <div class="lbl">DESIGN REVIEW</div>
       <p style="margin:18px 0 0;font-size:15px;line-height:1.6;color:#333;max-width:680px;">Design review challenged some of the assumptions behind the first settings model.</p>
 
@@ -242,7 +255,7 @@
       <div>
         <div class="ss" style="font-size:10px;color:#999;">02</div>
         <p class="px" style="margin:8px 0 0;font-weight:700;font-size:19px;">HOW SIMPLE COULD THE APPROVAL MODEL BE?</p>
-        <div style="overflow:hidden;height:700px;border:1px solid #000;margin-top:12px;width:100%;">
+        <div class="case-image-frame" style="overflow:hidden;height:700px;border:1px solid #000;margin-top:12px;width:100%;">
           <img src="uploads/92276c5c-c312-40a5-b890-5c3f616923c1.png" alt="Settings solutions exploration board, multiple approval model directions" style="width:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.05);display:block;">
         </div>
         <p style="margin:16px 0 0;font-size:13.5px;line-height:1.55;color:#333;max-width:640px;">The first settings model supported several approval choices and exceptions. Review feedback questioned whether the experience could be reduced to clearer choices.</p>
@@ -257,17 +270,17 @@
     </div>
 
     <!-- MAKING APPROVAL VISIBLE -->
-    <div style="padding:48px 72px;border-top:2px solid #000;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;">
       <div class="lbl">MAKING APPROVAL VISIBLE</div>
       <p style="margin:18px 0 0;font-size:15px;line-height:1.6;color:#333;max-width:700px;">Once owner approval became part of the renewal workflow, the property manager needed to understand more than whether an offer existed. They needed to know how urgent the renewal was, whether approval was required, who needed to respond and what action was available next.</p>
-      <div class="frame" style="margin-top:24px;">
-        <label class="shotwrap" style="overflow:hidden;height:460px;display:block;position:relative;cursor:pointer;">
+      <div class="frame case-hero-frame">
+        <label class="shotwrap case-image-frame" style="overflow:hidden;height:460px;display:block;position:relative;cursor:pointer;">
           <input type="checkbox">
           <img class="shot" src="uploads/Screenshot%202026-09-09%20at%2017.51.49.png" alt="Lease management table, Not started tab, showing days left, approval status and rental owner per lease" style="width:100%;object-fit:cover;object-position:top;">
           <span class="viewlabel">[ VIEW ORIGINAL ]</span>
         </label>
       </div>
-      <div style="display:flex;gap:32px;margin-top:20px;flex-wrap:wrap;">
+      <div class="case-annotations-row" style="display:flex;gap:32px;margin-top:20px;flex-wrap:wrap;">
         <div style="flex:1;min-width:150px;"><div class="ss" style="font-size:9px;color:#555;">TIME TO EXPIRY</div><p style="margin:6px 0 0;font-size:13px;line-height:1.5;">Days remaining make urgency visible.</p></div>
         <div style="flex:1;min-width:150px;"><div class="ss" style="font-size:9px;color:#555;">APPROVAL REQUIREMENT</div><p style="margin:6px 0 0;font-size:13px;line-height:1.5;">The table shows whether owner approval is required for that renewal.</p></div>
         <div style="flex:1;min-width:150px;"><div class="ss" style="font-size:9px;color:#555;">RESPONSIBLE OWNER</div><p style="margin:6px 0 0;font-size:13px;line-height:1.5;">The PMC can see who needs to respond without reconstructing the relationship elsewhere.</p></div>
@@ -277,32 +290,32 @@
     </div>
 
     <!-- THE MOMENT AI HAS TO STOP -->
-    <div style="padding:48px 72px;border-top:2px solid #000;background:#000;color:#fff;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;background:#000;color:#fff;">
       <div class="ss" style="font-size:10px;color:#aaa;">THE MOMENT AI HAS TO STOP</div>
       <p style="margin:18px 0 0;font-size:15px;line-height:1.6;color:#ddd;max-width:700px;">Generating a renewal offer was not the end of the workflow. When owner approval was required, the system had to stop progressing the renewal and make that dependency explicit.</p>
       <p style="margin:8px 0 0;font-size:12.5px;line-height:1.5;color:#888;max-width:700px;">The first version also kept the owner's interaction in email rather than introducing a separate portal flow.</p>
 
       <div style="display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:36px;">
-        <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
+        <div class="case-workflow-row" style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
           <div class="tag" style="font-size:11px;padding:14px 18px;min-width:150px;text-align:center;border-color:#666;color:#ddd;">AI GENERATES OFFER</div>
-          <span style="font-size:20px;color:#888;">→</span>
+          <span class="case-flow-arrow" style="font-size:20px;color:#888;">→</span>
           <div class="tag" style="font-size:11px;padding:14px 18px;min-width:150px;text-align:center;border-color:#666;color:#ddd;">PMC REVIEWS / EDITS</div>
-          <span style="font-size:20px;color:#888;">→</span>
+          <span class="case-flow-arrow" style="font-size:20px;color:#888;">→</span>
           <div class="tag" style="font-size:11px;padding:16px 20px;min-width:180px;text-align:center;background:#fff;color:#000;font-weight:700;box-shadow:0 0 0 4px #333;">OWNER REVIEW REQUIRED</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
+        <div class="case-workflow-row" style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
           <div class="tag" style="font-size:11px;padding:14px 18px;min-width:150px;text-align:center;border-color:#666;color:#ddd;">OWNER RESPONDS</div>
-          <span style="font-size:20px;color:#888;">→</span>
+          <span class="case-flow-arrow" style="font-size:20px;color:#888;">→</span>
           <div class="tag" style="font-size:11px;padding:14px 18px;min-width:150px;text-align:center;border-color:#666;color:#ddd;">WORKFLOW STATE UPDATES</div>
-          <span style="font-size:20px;color:#888;">→</span>
+          <span class="case-flow-arrow" style="font-size:20px;color:#888;">→</span>
           <div class="tag" style="font-size:11px;padding:14px 18px;min-width:150px;text-align:center;border-color:#666;color:#ddd;">RENEWAL CONTINUES</div>
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px;max-width:900px;margin-left:auto;margin-right:auto;">
+      <div class="case-stop-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px;max-width:900px;margin-left:auto;margin-right:auto;">
         <div>
           <div class="ss" style="font-size:9px;color:#999;margin-bottom:8px;">NEEDS REVIEW</div>
-          <label class="shotwrap" style="overflow:hidden;height:300px;display:block;position:relative;cursor:pointer;border:1px solid #444;">
+          <label class="shotwrap case-image-frame" style="overflow:hidden;height:300px;display:block;position:relative;cursor:pointer;border:1px solid #444;">
             <input type="checkbox">
             <img class="shot" src="uploads/Generate%20renewal%20offers.png" alt="Generate renewal offers modal, showing AI-generated offers awaiting rental owner review" style="width:100%;height:100%;object-fit:cover;object-position:top;">
             <span class="viewlabel">[ VIEW ORIGINAL ]</span>
@@ -311,7 +324,7 @@
         </div>
         <div>
           <div class="ss" style="font-size:9px;color:#999;margin-bottom:8px;">OWNER ACCEPTED</div>
-          <label class="shotwrap" style="overflow:hidden;height:300px;display:block;position:relative;cursor:pointer;border:1px solid #444;">
+          <label class="shotwrap case-image-frame" style="overflow:hidden;height:300px;display:block;position:relative;cursor:pointer;border:1px solid #444;">
             <input type="checkbox">
             <img class="shot" src="uploads/Generate%20renewal%20offersbanner.png" alt="Generate renewal offers modal, showing lease renewal terms accepted by the rental owner" style="width:100%;height:100%;object-fit:cover;object-position:top;">
             <span class="viewlabel">[ VIEW ORIGINAL ]</span>
@@ -324,7 +337,7 @@
     </div>
 
     <!-- WHAT I LEARNED -->
-    <div style="padding:64px 72px;border-top:2px solid #000;">
+    <div class="case-section" style="padding:64px 72px;border-top:2px solid #000;">
       <div class="lbl">WHAT I LEARNED</div>
       <p style="margin:24px 0 0;font-size:18px;line-height:1.65;color:#222;max-width:680px;">This project made the boundary between automation and authority very concrete. AI could remove coordination work around the decision without becoming the decision-maker.</p>
       <p style="margin:20px 0 0;font-size:18px;line-height:1.65;color:#222;max-width:680px;">One thing I would change is the research mix. We tested the workflow with property managers, but not directly with rental owners. For a product built around owner approval, I would include that decision-maker in the next research round.</p>
@@ -333,7 +346,7 @@
     <div style="border-top:2px solid #000;"></div>
 
     <!-- BACK TO CASE STUDIES -->
-    <a href="case-studies.html" style="display:block;padding:44px 72px;">
+    <a href="case-studies.html" class="case-next-link" style="display:block;padding:44px 72px;">
       <div class="ss" style="font-size:10px;color:#555;">← BACK TO CASE STUDIES</div>
     </a>
   </div>

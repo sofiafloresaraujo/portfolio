@@ -31,32 +31,37 @@
   .shotwrap input:focus-visible ~ .shot { outline:3px solid #000; outline-offset:2px; }
   .viewlabel { position:absolute; bottom:10px; right:12px; font-family:'Silkscreen',monospace; font-size:8px; letter-spacing:.3px; background:#fff; padding:3px 7px; border:1px solid #000; pointer-events:none; opacity:.85; }
   .frame { border:2px solid #000; background:#faf9f6; padding:40px; }
+  @media (max-width: 1024px) {
+    .case-diagram-3 { grid-template-columns: 1fr !important; gap: 12px !important; }
+    .case-diagram-3 > .case-diagram-arrow { display: none !important; }
+    .case-diagram-3 > div { width: 100% !important; min-width: 0 !important; }
+  }
   @media (max-width: 768px) {
     html, body { overflow-x: hidden; }
-    div[style*="padding:56px"] { padding: 8px !important; padding-top: 58px !important; }
-    div[style*="padding:56px"] > div[style*="max-width:1240px"] { width: 100% !important; max-width: 100% !important; }
-    div[style*="72px"] { padding-left: 16px !important; padding-right: 16px !important; }
-    div[style*="grid-template-columns:1fr 1fr"], div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    div[style*="grid-template-columns:1fr 40px 1fr 40px 1fr"] { grid-template-columns: 1fr !important; gap: 12px; }
-    div[style*="grid-template-columns:1fr 40px 1fr 40px 1fr"] > div[style*="justify-content:center"] { display: none !important; }
-    div[style*="border-right:2px solid #000"] { border-right: none !important; }
-    div[style*="grid-template-columns:1fr 1fr"] > div, div[style*="grid-template-columns:1fr 1fr 1fr"] > div { border-bottom: 2px solid #000; }
-    .frame { padding: 16px !important; }
-    div[style*="height:420px"] { height: 220px !important; }
-    div[style*="height:400px"] img { width: 220% !important; }
-    div[style*="height:400px"] { height: 240px !important; }
+    .case-page-shell { padding: 8px !important; padding-top: 58px !important; }
+    .case-top-nav, .case-window { width: 100% !important; max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; box-sizing: border-box !important; }
+    .case-top-nav { padding: 0 8px; margin-top: 8px; }
+    .case-top-nav a { font-size: 12px !important; padding: 7px 10px !important; }
+    .case-section { padding-left: 16px !important; padding-right: 16px !important; }
+    .case-grid-2, .case-grid-3, .case-grid-4 { grid-template-columns: 1fr !important; }
+    .case-grid-2 > div, .case-grid-3 > div, .case-grid-4 > div { border-right: none !important; border-bottom: 2px solid #000; }
+    .case-diagram-3 { grid-template-columns: 1fr !important; gap: 12px; }
+    .case-diagram-3 > .case-diagram-arrow { display: none !important; }
+    .case-window-grip { height: 22px !important; }
+    .case-hero-frame { padding: 10px !important; }
+    .case-hero-frame .shotwrap { height: 190px !important; }
+    .case-hero-frame img { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: top !important; }
+    .case-right-stripes { display: block !important; }
+    .case-demo-frame { padding: 8px !important; }
+    .case-mapping-frame { padding: 12px 16px 24px !important; }
+    .case-mapping-frame .frame { padding: 12px !important; }
+    .case-mapping-frame .case-mapping-img-box { height: 190px !important; }
+    .case-mapping-frame img { width: 190% !important; }
+    .case-decision-diagram { padding: 12px !important; }
+    .case-next-link { padding: 32px 16px !important; }
     h1 { font-size: 34px !important; }
-    .ss[style*="font-size:24px"], p[style*="font-size:24px"] { font-size: 19px !important; }
-    p[style*="font-size:29px"] { font-size: 22px !important; }
-    div[style*="max-width:1240px"][style*="justify-content:space-between"] { padding: 0 8px; margin-top: 8px; width: 100% !important; max-width: 100% !important; }
-    div[style*="max-width:1240px"][style*="justify-content:space-between"] a { font-size: 12px !important; padding: 7px 10px !important; }
-    a[style*="padding:44px 72px"] { padding: 32px 16px !important; }
-    .frame { padding: 10px !important; }
-    div[style*="height:420px"] { height: 200px !important; }
-    div[style*="padding:36px 72px 64px"] { padding: 12px 16px 24px !important; }
-    div[style*="height:400px"] { height: 190px !important; }
-    div[style*="height:400px"] img { width: 190% !important; }
-    div[style*="border-top:2px solid #000;padding:40px"] { padding: 12px !important; }
+    .case-question { font-size: 19px !important; }
+    .case-what-we-learned-quote { font-size: 22px !important; }
   }
   @media (max-width: 480px) {
     .sofia-menu-bar { padding: 0 6px !important; }
@@ -85,15 +90,16 @@
   <span class="ss" style="margin-left:auto;font-size:11px;">SOFIA OS</span>
 </div>
 
-<div style="font-family:'Work Sans',Helvetica,Arial,sans-serif;padding:56px;padding-top:82px;background:conic-gradient(#000 90deg,#fff 90deg 180deg,#000 180deg 270deg,#fff 270deg) 0 0/2px 2px;min-height:100vh;" onClick="{{ closeMenus }}">
+<div class="case-page-shell" style="font-family:'Work Sans',Helvetica,Arial,sans-serif;padding:56px;padding-top:82px;background:conic-gradient(#000 90deg,#fff 90deg 180deg,#000 180deg 270deg,#fff 270deg) 0 0/2px 2px;min-height:100vh;" onClick="{{ closeMenus }}">
 
-  <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+  <div class="case-top-nav" style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
     <a href="case-studies.html" class="px" style="display:inline-flex;align-items:center;gap:8px;border:2px solid #000;border-radius:11px;background:#fff;padding:9px 16px;box-shadow:2px 2px 0 #000;font-weight:600;font-size:14px;">◂ Back to Selected Work</a>
     <div class="ss" style="font-size:11px;background:#000;color:#fff;padding:6px 12px;">CASE 01 / 03</div>
   </div>
 
-  <div style="max-width:1240px;margin:0 auto;border:2px solid #000;background:#fff;box-shadow:8px 8px 0 rgba(0,0,0,.35);">
-    <div style="position:relative;height:28px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;">
+  <div class="case-window" style="max-width:1240px;margin:0 auto;border:2px solid #000;background:#fff;box-shadow:8px 8px 0 rgba(0,0,0,.35);position:relative;">
+    <div class="case-right-stripes" aria-hidden="true" style="display:none;position:absolute;top:0;right:0;bottom:0;width:10px;z-index:5;pointer-events:none;background:repeating-linear-gradient(to bottom,#000 0,#000 2px,transparent 2px,transparent 4px);"></div>
+    <div class="case-window-grip" style="position:relative;height:28px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;">
       <div style="position:absolute;inset:5px 8px;background:repeating-linear-gradient(#000 0 1px,transparent 1px 3px);"></div>
 <a href="index.html" aria-label="Close window and return to desktop" title="Close window and return to desktop" style="position:absolute;left:8px;top:6px;width:13px;height:13px;border:2px solid #000;background:#fff;display:block;cursor:pointer;"></a>
       <span class="px" style="position:relative;background:#fff;padding:0 12px;font-weight:600;font-size:13px;white-space:nowrap;">Introducing Agentic AI</span>
@@ -109,8 +115,8 @@
       </div>
       <p class="mono" style="margin:24px 0 0;font-size:11.5px;color:#888;font-style:italic;">Some product details and visuals have been simplified or omitted to protect confidential work.</p>
     </div>
-    <div style="padding:36px 72px 64px;">
-      <div class="frame">
+    <div class="case-section" style="padding:36px 72px 64px;">
+      <div class="frame case-hero-frame">
         <label class="shotwrap" style="overflow:hidden;height:420px;">
           <input type="checkbox">
           <img class="shot" src="uploads/Property%201%3DPremium.svg" alt="Agentic AI landing experience" style="width:100%;object-fit:cover;object-position:top;">
@@ -120,7 +126,7 @@
     </div>
 
     <!-- FROM SOFTWARE TO DELEGATION -->
-    <div style="padding:48px 72px;background:#f2f2f0;border-top:2px solid #000;">
+    <div class="case-section" style="padding:48px 72px;background:#f2f2f0;border-top:2px solid #000;">
       <div class="lbl">FROM SOFTWARE TO DELEGATION</div>
       <p style="margin:20px 0 0;font-weight:650;font-size:19px;line-height:1.5;color:#111;max-width:680px;">This project sat at a shift <strong>from assistive AI to a more agentic model</strong>, one where the system doesn't just help, it acts.</p>
       <p style="margin:16px 0 0;font-weight:650;font-size:19px;line-height:1.5;color:#111;max-width:680px;"><strong>The relationship between user and product was changing.</strong></p>
@@ -132,24 +138,24 @@
     </div>
 
     <!-- THE CHALLENGE -->
-    <div style="padding:48px 72px;border-top:2px solid #000;">
+    <div class="case-section" style="padding:48px 72px;border-top:2px solid #000;">
       <div class="lbl">THE CHALLENGE</div>
       <p style="margin:20px 0 0;font-size:17px;line-height:1.6;color:#111;max-width:680px;">Buildium was exploring how to introduce agentic AI capabilities into an established B2B property-management platform.</p>
       <p style="margin:20px 0 0;font-size:17px;line-height:1.6;color:#111;max-width:680px;">Unlike traditional software features, autonomous systems require <strong>a new mental model</strong>: users need to understand not only what the system can do, but what happens when they delegate work to it.</p>
       <p style="margin:20px 0 0;font-size:17px;line-height:1.6;color:#111;max-width:680px;">The challenge was to make a complex new interaction model understandable <strong>without asking users to trust autonomy blindly</strong>.</p>
       <div style="margin-top:32px;border:2px solid #000;background:#f4f4f2;padding:32px 40px;">
         <div class="ss" style="font-size:10px;color:#555;">CENTRAL PRODUCT QUESTION</div>
-        <p style="margin:14px 0 0;font-weight:600;font-size:24px;line-height:1.4;max-width:900px;">"How might we help property managers understand and experience Agentic AI before asking them to trust it with their business?"</p>
+        <p class="case-question" style="margin:14px 0 0;font-weight:600;font-size:24px;line-height:1.4;max-width:900px;">"How might we help property managers understand and experience Agentic AI before asking them to trust it with their business?"</p>
       </div>
     </div>
 
     <div style="border-top:2px solid #000;"></div>
 
     <!-- WHAT WE LEARNED -->
-    <div style="padding:32px 72px 44px;background:#f4f4f2;">
+    <div class="case-section" style="padding:32px 72px 44px;background:#f4f4f2;">
       <div class="lbl">WHAT WE LEARNED</div>
-      <p style="margin:16px 0 0;font-weight:700;font-size:29px;line-height:1.3;max-width:700px;">"Trust has to be earned before adoption happens."</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+      <p class="case-what-we-learned-quote" style="margin:16px 0 0;font-weight:700;font-size:29px;line-height:1.3;max-width:700px;">"Trust has to be earned before adoption happens."</p>
+      <div class="case-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
         <div style="border:2px solid #000;background:#fff;padding:18px 20px;"><div class="ss" style="font-size:10px;color:#555;">01 · UNDERSTANDING</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">Users needed to <strong>understand cause and effect</strong> before feeling comfortable using autonomous AI.</p></div>
         <div style="border:2px solid #000;background:#fff;padding:18px 20px;"><div class="ss" style="font-size:10px;color:#555;">02 · CONSEQUENCES</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">Users wanted to <strong>understand before delegating</strong>: what the system would do, and what would happen as a result.</p></div>
         <div style="border:2px solid #000;background:#fff;padding:18px 20px;"><div class="ss" style="font-size:10px;color:#555;">03 · CONTROL</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">Visible oversight and reversibility mattered. Users needed to feel they'd <strong>remain in control</strong>.</p></div>
@@ -160,11 +166,11 @@
     <div style="border-top:2px solid #000;"></div>
 
     <!-- MY ROLE -->
-    <div style="padding:32px 72px 44px;">
+    <div class="case-section" style="padding:32px 72px 44px;">
       <div class="lbl">MY ROLE</div>
       <p style="margin:16px 0 0;font-weight:650;font-size:21px;line-height:1.45;max-width:680px;">My role was to help turn an ambiguous AI onboarding problem into a clearer product journey.</p>
       <p style="margin:14px 0 0;font-size:17px;line-height:1.6;color:#222;max-width:680px;">I helped structure the work from early planning through research and concept exploration, synthesized usability findings into actionable product questions, and mapped the existing customer journey to identify where the experience needed to evolve. Working across Product, Research, Content and Marketing, I helped translate those insights into onboarding and activation decisions.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border:2px solid #000;margin-top:18px;">
+      <div class="case-grid-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;border:2px solid #000;margin-top:18px;">
         <div style="padding:22px 24px;border-right:2px solid #000;"><div class="px" style="font-weight:700;font-size:19px;">FRAMED</div><p style="margin:12px 0 0;font-size:13.5px;line-height:1.55;">Helped <strong>structure the work</strong> early, including proposing a phased project approach and exploring the journey users would need to move through.</p></div>
         <div style="padding:22px 24px;border-right:2px solid #000;"><div class="px" style="font-weight:700;font-size:19px;">SYNTHESIZED</div><p style="margin:12px 0 0;font-size:13.5px;line-height:1.55;"><strong>Turned research into product questions</strong>, helping the team tell surface-level usability issues apart from the deeper trust problem.</p></div>
         <div style="padding:22px 24px;"><div class="px" style="font-weight:700;font-size:19px;">SHAPED</div><p style="margin:12px 0 0;font-size:13.5px;line-height:1.55;">Contributed to key onboarding and activation decisions and <strong>helped shape product direction</strong> by connecting research with the evolving experience.</p></div>
@@ -175,10 +181,12 @@
       </div>
 
       <p style="margin:48px 0 0;font-weight:600;font-size:17px;line-height:1.4;max-width:700px;">I mapped the system before designing the intervention.</p>
+      <div class="case-mapping-frame">
       <div class="frame" style="margin-top:32px;">
-        <div style="height:400px;overflow:hidden;border:2px solid #000;">
+        <div class="case-mapping-img-box" style="height:400px;overflow:hidden;border:2px solid #000;">
           <img src="uploads/Onboarding%20Agent%20(Phase2).jpg" alt="As-is onboarding journey map" style="width:148%;display:block;">
         </div>
+      </div>
       </div>
       <p style="margin:20px 0 0;font-size:13px;line-height:1.6;color:#333;max-width:700px;">Mapping the existing experience helped expose where complexity already existed before introducing a new AI interaction model.</p>
     </div>
@@ -186,31 +194,31 @@
     <div style="border-top:2px solid #000;"></div>
 
     <!-- KEY DECISIONS -->
-    <div style="padding:48px 72px;">
+    <div class="case-section" style="padding:48px 72px;">
       <div class="lbl">KEY PRODUCT DECISIONS · 03</div>
 
       <div style="border:2px solid #000;margin-top:22px;">
         <div style="padding:18px 24px;border-bottom:2px solid #000;background:#000;color:#fff;"><span class="px" style="font-weight:700;font-size:19px;">01 · Trust before spectacle</span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <div class="case-grid-2" style="display:grid;grid-template-columns:1fr 1fr;">
           <div style="padding:20px;border-right:2px solid #000;border-bottom:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">ASSUMPTION</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">We explored ways to demonstrate the value of the AI experience immediately.</p></div>
           <div style="padding:20px;border-bottom:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">RESEARCH</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">Testing showed that <strong>simulated activity</strong> could create the opposite effect: users were uncomfortable seeing activity they had not initiated or configured.</p></div>
           <div style="padding:20px;border-right:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">DECISION</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">Prioritize a <strong>transparent first state</strong> rather than creating the impression that autonomous work was already happening.</p></div>
           <div style="padding:20px;"><div class="ss" style="font-size:9px;color:#555;">LEARNING</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;"><strong>Before demonstrating autonomy, users first needed to understand what the AI was doing, why it was happening, and what remained under their control.</strong></p><p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#333;">Showing pre-populated activity was intended to demonstrate the value of AI immediately. Instead, it raised a more fundamental question for users: was the system already taking action without their input or approval?</p></div>
         </div>
-        <div style="border-top:2px solid #000;padding:40px;">
-          <div style="display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;align-items:stretch;">
+        <div class="case-decision-diagram" style="border-top:2px solid #000;padding:40px;">
+          <div class="case-diagram-3" style="display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;align-items:stretch;">
             <div style="border:2px solid #000;padding:22px 20px;">
               <div class="ss" style="font-size:9px;color:#555;">01 / INITIAL IDEA</div>
               <p class="px" style="margin:14px 0 0;font-weight:700;font-size:17px;">SHOW ACTIVITY</p>
               <p style="margin:12px 0 0;font-size:13px;line-height:1.5;color:#333;">Demonstrate value immediately by showing activity in the first Command Center experience.</p>
             </div>
-            <div style="display:flex;align-items:center;justify-content:center;font-size:20px;">→</div>
+            <div class="case-diagram-arrow" style="display:flex;align-items:center;justify-content:center;font-size:20px;">→</div>
             <div style="border:2px solid #000;padding:22px 20px;">
               <div class="ss" style="font-size:9px;color:#555;">02 / USER REACTION</div>
               <p class="px" style="margin:14px 0 0;font-weight:700;font-size:17px;">"DID I AUTHORIZE THIS?"</p>
               <p style="margin:12px 0 0;font-size:13px;line-height:1.5;color:#333;">Activity without context created uncertainty about whether AI was already acting.</p>
             </div>
-            <div style="display:flex;align-items:center;justify-content:center;font-size:20px;">→</div>
+            <div class="case-diagram-arrow" style="display:flex;align-items:center;justify-content:center;font-size:20px;">→</div>
             <div style="border:2px solid #000;padding:22px 20px;background:#000;color:#fff;">
               <div class="ss" style="font-size:9px;color:#aaa;">03 / DECISION</div>
               <p class="px" style="margin:14px 0 0;font-weight:700;font-size:17px;">START TRANSPARENT</p>
@@ -223,7 +231,7 @@
 
       <div style="border:2px solid #000;border-top:none;">
         <div style="padding:18px 24px;border-bottom:2px solid #000;background:#000;color:#fff;"><span class="px" style="font-weight:700;font-size:19px;">02 · Reduce the commitment step</span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <div class="case-grid-2" style="display:grid;grid-template-columns:1fr 1fr;">
           <div style="padding:20px;border-right:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">BEFORE</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">An early activation concept required users to move through multiple confirmation steps.</p></div>
           <div style="padding:20px;"><div class="ss" style="font-size:9px;color:#555;">ITERATION</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">The experience was simplified into a more focused confirmation moment.</p></div>
         </div>
@@ -243,12 +251,12 @@
 
       <div style="border:2px solid #000;border-top:none;">
         <div style="padding:18px 24px;border-bottom:2px solid #000;background:#000;color:#fff;"><span class="px" style="font-weight:700;font-size:19px;">03 · Show, don't just explain</span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;">
-          <div style="padding:20px;border-right:2px solid #000;"><div class="ss" style="font-size:9px;color:#555;">PROBLEM</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">Agentic AI introduced unfamiliar behaviors that were difficult to communicate through explanatory content alone.</p></div>
-          <div style="padding:20px;"><div class="ss" style="font-size:9px;color:#555;">RESEARCH &amp; DIRECTION</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;"><strong>Interactive demonstration</strong> helped participants understand how the system behaved and where <strong>human oversight</strong> remained. It prioritized <strong>experiential learning</strong> over passive explanation.</p></div>
+        <div class="case-grid-2" style="display:grid;grid-template-columns:1fr 1fr;">
+          <div style="padding:20px;border-right:2px solid #000;min-width:0;overflow-wrap:break-word;"><div class="ss" style="font-size:9px;color:#555;">PROBLEM</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;">Agentic AI introduced unfamiliar behaviors that were difficult to communicate through explanatory content alone.</p></div>
+          <div style="padding:20px;min-width:0;overflow-wrap:break-word;"><div class="ss" style="font-size:9px;color:#555;">RESEARCH &amp; DIRECTION</div><p style="margin:10px 0 0;font-size:13.5px;line-height:1.55;"><strong>Interactive demonstration</strong> helped participants understand how the system behaved and where <strong>human oversight</strong> remained. It prioritized <strong>experiential learning</strong> over passive explanation.</p></div>
         </div>
-        <div style="border-top:2px solid #000;padding:40px;">
-          <div class="frame">
+        <div class="case-decision-diagram case-demo-frame" style="border-top:2px solid #000;padding:40px;">
+          <div class="frame" style="padding:8px;">
             <label class="shotwrap">
               <input type="checkbox">
               <img class="shot" src="uploads/Section3.png" alt="Interactive demo of an agent job with a human decision point" style="width:100%;">
@@ -287,9 +295,9 @@
     <div style="border-top:2px solid #000;"></div>
 
     <!-- OUTCOME -->
-    <div style="padding:48px 72px;">
+    <div class="case-section" style="padding:48px 72px;">
       <div class="lbl">OUTCOME</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;border:2px solid #000;margin-top:18px;">
+      <div class="case-grid-2" style="display:grid;grid-template-columns:1fr 1fr;border:2px solid #000;margin-top:18px;">
         <div style="padding:20px 22px;border-right:2px solid #000;border-bottom:2px solid #000;"><span class="tag" style="background:#000;color:#fff;">VALIDATED LEARNING</span><p style="margin:12px 0 0;font-size:14px;line-height:1.55;">Research consistently surfaced trust, comprehension and control as important adoption factors.</p></div>
         <div style="padding:20px 22px;border-bottom:2px solid #000;"><span class="tag" style="background:#000;color:#fff;">ASSUMPTION CHALLENGED</span><p style="margin:12px 0 0;font-size:14px;line-height:1.55;">Testing changed an early assumption about how autonomous activity should be presented during onboarding.</p></div>
         <div style="padding:20px 22px;border-right:2px solid #000;"><span class="tag">DESIGN DIRECTION</span><p style="margin:12px 0 0;font-size:14px;line-height:1.55;">The findings informed how the team approached education, activation and progressive exposure to AI capabilities.</p></div>
@@ -311,7 +319,7 @@
     <div style="border-top:2px solid #000;"></div>
 
     <!-- NEXT CASE -->
-    <a href="case-02.html" style="display:block;padding:44px 72px;">
+    <a href="case-02.html" class="case-next-link" style="display:block;padding:44px 72px;">
       <div class="ss" style="font-size:10px;color:#555;">NEXT CASE →</div>
       <div class="px" style="font-weight:700;font-size:28px;margin-top:14px;">Expanding eSignatures Beyond the Lease</div>
       <div style="font-size:15px;color:#333;margin-top:8px;">Expanding a lease-bound feature into a system for any document, signer and portal.</div>

@@ -33,10 +33,11 @@
     .hero-eyebrow-desktop { display: none !important; }
     .hero-copy, .resp-portrait { display: contents !important; }
     .hero-headline { order: 1 !important; width: 100% !important; padding: 20px 20px 0 !important; margin: 0 !important; font-size: 32px !important; line-height: 1.2 !important; }
-    .portrait-img-wrap { order: 2 !important; width: 100% !important; height: 240px !important; margin: 16px 20px 0 !important; flex: none !important; }
-    .hero-body { order: 3 !important; width: 100% !important; padding: 16px 20px 0 !important; margin: 0 !important; max-width: 100% !important; }
-    .hero-cta-wrap { order: 4 !important; width: 100% !important; padding: 0 20px !important; margin-top: 20px !important; }
-    .portrait-meta-wrap { order: 5 !important; width: 100% !important; padding: 16px 20px 20px !important; margin: 0 !important; }
+    .portrait-img-wrap { order: 2 !important; width: 100% !important; height: auto !important; min-height: 0 !important; margin: 16px 20px 0 !important; flex: none !important; }
+    .portrait-img-wrap img { object-fit: contain !important; height: auto !important; }
+    .portrait-meta-wrap { order: 3 !important; width: 100% !important; padding: 16px 20px 0 !important; margin: 0 !important; }
+    .hero-body { order: 4 !important; width: 100% !important; padding: 16px 20px 0 !important; margin: 0 !important; max-width: 100% !important; }
+    .hero-cta-wrap { order: 5 !important; width: 100% !important; padding: 0 20px 20px !important; margin-top: 20px !important; }
     .resp-video { width: 100% !important; margin-top: 20px; }
     .grid-3col, .grid-3col-writing { grid-template-columns: 1fr !important; }
     .grid-3col > div, .grid-3col-writing > div { border-right: none !important; border-bottom: 2px solid #000; }

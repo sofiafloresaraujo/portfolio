@@ -4,18 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<title>Introducing Agentic AI | Sofia Flores Araújo</title>
-<meta name="description" content="Designing the onboarding and discovery experience for introducing AI agents into a B2B property-management platform.">
-<meta name="author" content="Sofia Flores Araújo">
-<link rel="canonical" href="https://sofiafloresaraujo.github.io/portfolio/case-01.html">
-<meta property="og:title" content="Introducing Agentic AI | Sofia Flores Araújo">
-<meta property="og:description" content="Designing the onboarding and discovery experience for introducing AI agents into a B2B property-management platform.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://sofiafloresaraujo.github.io/portfolio/case-01.html">
-<meta property="og:site_name" content="Sofia Flores Araújo">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Introducing Agentic AI | Sofia Flores Araújo">
-<meta name="twitter:description" content="Designing the onboarding and discovery experience for introducing AI agents into a B2B property-management platform.">
 </head>
 <body>
 <x-dc>
@@ -44,15 +32,28 @@
   .viewlabel { position:absolute; bottom:10px; right:12px; font-family:'Silkscreen',monospace; font-size:8px; letter-spacing:.3px; background:#fff; padding:3px 7px; border:1px solid #000; pointer-events:none; opacity:.85; }
   .frame { border:2px solid #000; background:#faf9f6; padding:40px; }
   @media (max-width: 768px) {
-    div[style*="padding:56px"] { padding: 20px !important; }
-    div[style*="72px"] { padding-left: 20px !important; padding-right: 20px !important; }
-    div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-    div[style*="grid-template-columns:1fr 40px 1fr 40px 1fr"] { grid-template-columns: 1fr !important; }
+    html, body { overflow-x: hidden; }
+    div[style*="padding:56px"] { padding: 14px !important; padding-top: 58px !important; }
+    div[style*="72px"] { padding-left: 18px !important; padding-right: 18px !important; }
+    div[style*="grid-template-columns:1fr 1fr"], div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    div[style*="grid-template-columns:1fr 40px 1fr 40px 1fr"] { grid-template-columns: 1fr !important; gap: 12px; }
+    div[style*="grid-template-columns:1fr 40px 1fr 40px 1fr"] > div[style*="justify-content:center"] { display: none !important; }
+    div[style*="border-right:2px solid #000"] { border-right: none !important; }
+    div[style*="grid-template-columns:1fr 1fr"] > div, div[style*="grid-template-columns:1fr 1fr 1fr"] > div { border-bottom: 2px solid #000; }
+    .frame { padding: 16px !important; }
+    div[style*="height:420px"] { height: 220px !important; }
+    div[style*="height:400px"] img { width: 220% !important; }
+    div[style*="height:400px"] { height: 240px !important; }
     h1 { font-size: 34px !important; }
+    .ss[style*="font-size:24px"], p[style*="font-size:24px"] { font-size: 19px !important; }
+    p[style*="font-size:29px"] { font-size: 22px !important; }
+    div[style*="max-width:1240px"][style*="justify-content:space-between"] { padding: 0 14px; margin-top: 8px; }
+    div[style*="max-width:1240px"][style*="justify-content:space-between"] a { font-size: 12px !important; padding: 7px 10px !important; }
   }
   @media (max-width: 480px) {
-    .sofia-menu-bar { height: auto !important; flex-wrap: wrap; padding: 6px 8px !important; row-gap: 4px; }
-    .sofia-menu-bar button { padding: 3px 6px !important; font-size: 11px !important; }
+    .sofia-menu-bar { padding: 0 6px !important; }
+    .sofia-menu-bar button { padding: 4px 7px !important; font-size: 12px !important; }
+    .sofia-menu-bar > div:first-child { margin-right: 8px !important; }
   }
 </style>
 </helmet>

@@ -33,8 +33,9 @@
   .frame { border:2px solid #000; background:#faf9f6; padding:40px; }
   @media (max-width: 768px) {
     html, body { overflow-x: hidden; }
-    div[style*="padding:56px"] { padding: 14px !important; padding-top: 58px !important; }
-    div[style*="72px"] { padding-left: 18px !important; padding-right: 18px !important; }
+    div[style*="padding:56px"] { padding: 8px !important; padding-top: 58px !important; }
+    div[style*="padding:56px"] > div[style*="max-width:1240px"] { width: 100% !important; max-width: 100% !important; }
+    div[style*="72px"] { padding-left: 16px !important; padding-right: 16px !important; }
     div[style*="grid-template-columns:1fr 1fr"], div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
     div[style*="grid-template-columns:1fr 40px 1fr 40px 1fr"] { grid-template-columns: 1fr !important; gap: 12px; }
     div[style*="grid-template-columns:1fr 40px 1fr 40px 1fr"] > div[style*="justify-content:center"] { display: none !important; }
@@ -47,7 +48,7 @@
     h1 { font-size: 34px !important; }
     .ss[style*="font-size:24px"], p[style*="font-size:24px"] { font-size: 19px !important; }
     p[style*="font-size:29px"] { font-size: 22px !important; }
-    div[style*="max-width:1240px"][style*="justify-content:space-between"] { padding: 0 14px; margin-top: 8px; }
+    div[style*="max-width:1240px"][style*="justify-content:space-between"] { padding: 0 8px; margin-top: 8px; width: 100% !important; max-width: 100% !important; }
     div[style*="max-width:1240px"][style*="justify-content:space-between"] a { font-size: 12px !important; padding: 7px 10px !important; }
   }
   @media (max-width: 480px) {

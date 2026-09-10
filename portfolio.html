@@ -29,7 +29,10 @@
     #turn1 { padding: 14px !important; padding-top: 60px !important; gap: 16px !important; }
     .resp-row { flex-direction: column !important; }
     .resp-panel360 { width: 100% !important; border-right: none !important; border-bottom: 2px solid #000; padding: 24px 20px !important; }
-    .resp-portrait { width: 100% !important; order: -1; padding: 16px !important; }
+    .resp-portrait { width: 100% !important; order: 1 !important; padding: 16px !important; }
+    .hero-copy { order: 2 !important; border-right: none !important; }
+    .hero-eyebrow { display: block !important; order: 0 !important; }
+    .hero-eyebrow-desktop { display: none !important; }
     .resp-video { width: 100% !important; margin-top: 20px; }
     div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
     div[style*="grid-template-columns:1.3fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
@@ -78,10 +81,13 @@
           <span class="px" style="position:relative;color:#fff;padding:0 12px;font-weight:600;font-size:15px;letter-spacing:.3px;">Portfolio · Sofia Flores</span>
         </div>
 
-        <div class="resp-row" style="display:flex;min-height:360px;">
-          <!-- left: hero -->
-          <div style="flex:1.15;padding:44px 40px;border-right:2px solid #000;display:flex;flex-direction:column;">
+        <div class="resp-row" style="display:flex;flex-wrap:wrap;min-height:360px;">
+          <div class="hero-eyebrow" style="display:none;width:100%;padding:20px 20px 0;">
             <div class="ss" style="font-size:11px;">SOFIA FLORES · PRODUCT DESIGNER</div>
+          </div>
+          <!-- left: hero -->
+          <div class="hero-copy" style="flex:1.15;padding:44px 40px;border-right:2px solid #000;display:flex;flex-direction:column;">
+            <div class="ss hero-eyebrow-desktop" style="font-size:11px;">SOFIA FLORES · PRODUCT DESIGNER</div>
             <h1 style="margin:22px 0 0;font-weight:700;font-size:46px;line-height:1.15;">I design complex product systems where AI, information and human decisions meet.</h1>
             <p style="margin:30px 0 0;font-size:17px;line-height:1.6;color:#111;max-width:440px;">7+ years across visual design, UX and product, now focused on <strong>complex AI-driven systems</strong>. I care about how people understand information, evaluate options and make decisions, especially <strong>when technology begins to act on their behalf</strong>.</p>
             <div style="display:flex;gap:14px;margin-top:36px;">

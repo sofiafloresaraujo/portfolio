@@ -23,6 +23,14 @@
   @media (prefers-reduced-motion: reduce) {
     .sofia-fade { animation: none !important; }
   }
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    .paint-window { left: 4px !important; top: 40px !important; width: calc(100vw - 8px) !important; max-width: calc(100vw - 8px) !important; height: 80vh !important; max-height: 80vh !important; }
+  }
+  @media (max-width: 480px) {
+    .sofia-menu-bar { padding: 0 6px !important; }
+    .sofia-menu-bar button { padding: 4px 7px !important; font-size: 12px !important; }
+  }
 </style>
 </helmet>
 
@@ -139,7 +147,7 @@
         </sc-if>
 
         <sc-if value="{{ paintOpen }}" hint-placeholder-val="{{ false }}">
-          <div onMouseDown="{{ focusPaint }}" style="{{ paintWinStyle }}">
+          <div class="paint-window" onMouseDown="{{ focusPaint }}" style="{{ paintWinStyle }}">
             <div class="px" style="height:26px;border-bottom:2px solid #000;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;flex:none;">
               <span style="font-size:14px;font-weight:600;">{{ paintTitle }}</span>
               <button onClick="{{ closePaint }}" aria-label="Close window" style="position:absolute;left:6px;top:2px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;padding:0;cursor:pointer;"><span style="width:13px;height:13px;border:2px solid #fff;background:#000;display:block;"></span></button>

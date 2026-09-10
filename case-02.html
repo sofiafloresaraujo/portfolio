@@ -28,8 +28,9 @@
   .shotwrap input:focus-visible ~ .shot { outline:3px solid #000; outline-offset:2px; }
   @media (max-width: 768px) {
     html, body { overflow-x: hidden; }
-    div[style*="padding:56px"] { padding: 14px !important; padding-top: 58px !important; }
-    div[style*="72px"] { padding-left: 18px !important; padding-right: 18px !important; }
+    div[style*="padding:56px"] { padding: 8px !important; padding-top: 58px !important; }
+    div[style*="padding:56px"] > div[style*="max-width:1240px"] { width: 100% !important; max-width: 100% !important; }
+    div[style*="72px"] { padding-left: 16px !important; padding-right: 16px !important; }
     div[style*="grid-template-columns:1fr 1fr"], div[style*="grid-template-columns:1fr 1fr 1fr"], div[style*="grid-template-columns:1fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
     div[style*="grid-template-columns:1fr 1fr"] > div, div[style*="grid-template-columns:1fr 1fr 1fr"] > div, div[style*="grid-template-columns:1fr 1fr 1fr 1fr"] > div { border-right: none !important; border-bottom: 2px solid #000; }
     div[style*="border-right:1px solid #333"] { border-right: none !important; border-bottom: 1px solid #333; }

@@ -29,14 +29,17 @@
     #turn1 { padding: 14px !important; padding-top: 60px !important; gap: 16px !important; }
     .resp-row { flex-direction: column !important; }
     .resp-panel360 { width: 100% !important; border-right: none !important; border-bottom: 2px solid #000; padding: 24px 20px !important; }
-    .resp-portrait { width: 100% !important; order: 1 !important; padding: 16px !important; }
-    .hero-copy { order: 2 !important; border-right: none !important; }
     .hero-eyebrow { display: block !important; order: 0 !important; }
     .hero-eyebrow-desktop { display: none !important; }
+    .hero-copy, .resp-portrait { display: contents !important; }
+    .hero-headline { order: 1 !important; width: 100% !important; padding: 20px 20px 0 !important; margin: 0 !important; font-size: 32px !important; line-height: 1.2 !important; }
+    .portrait-img-wrap { order: 2 !important; width: 100% !important; height: 240px !important; margin: 16px 20px 0 !important; flex: none !important; }
+    .hero-body { order: 3 !important; width: 100% !important; padding: 16px 20px 0 !important; margin: 0 !important; max-width: 100% !important; }
+    .hero-cta-wrap { order: 4 !important; width: 100% !important; padding: 0 20px !important; margin-top: 20px !important; }
+    .portrait-meta-wrap { order: 5 !important; width: 100% !important; padding: 16px 20px 20px !important; margin: 0 !important; }
     .resp-video { width: 100% !important; margin-top: 20px; }
-    div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    div[style*="grid-template-columns:1.3fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    div[style*="grid-template-columns:1fr 1fr 1fr"] > div, div[style*="grid-template-columns:1.3fr 1fr 1fr"] > div { border-right: none !important; border-bottom: 2px solid #000; }
+    .grid-3col, .grid-3col-writing { grid-template-columns: 1fr !important; }
+    .grid-3col > div, .grid-3col-writing > div { border-right: none !important; border-bottom: 2px solid #000; }
     h1 { font-size: 34px !important; line-height: 1.18 !important; }
     h2 { font-size: 26px !important; }
     h3 { font-size: 21px !important; }
@@ -88,17 +91,16 @@
           <!-- left: hero -->
           <div class="hero-copy" style="flex:1.15;padding:44px 40px;border-right:2px solid #000;display:flex;flex-direction:column;">
             <div class="ss hero-eyebrow-desktop" style="font-size:11px;">SOFIA FLORES · PRODUCT DESIGNER</div>
-            <h1 style="margin:22px 0 0;font-weight:700;font-size:46px;line-height:1.15;">I design complex product systems where AI, information and human decisions meet.</h1>
-            <p style="margin:30px 0 0;font-size:17px;line-height:1.6;color:#111;max-width:440px;">7+ years across visual design, UX and product, now focused on <strong>complex AI-driven systems</strong>. I care about how people understand information, evaluate options and make decisions, especially <strong>when technology begins to act on their behalf</strong>.</p>
-            <div style="display:flex;gap:14px;margin-top:36px;">
+            <h1 class="hero-headline" style="margin:22px 0 0;font-weight:700;font-size:46px;line-height:1.15;">I design complex product systems where AI, information and human decisions meet.</h1>
+            <p class="hero-body" style="margin:30px 0 0;font-size:17px;line-height:1.6;color:#111;max-width:440px;">7+ years across visual design, UX and product, now focused on <strong>complex AI-driven systems</strong>. I care about how people understand information, evaluate options and make decisions, especially <strong>when technology begins to act on their behalf</strong>.</p>
+            <div class="hero-cta-wrap" style="display:flex;gap:14px;margin-top:36px;">
               <a href="mailto:sofiaflores.uk@gmail.com" class="px" style="display:inline-flex;align-items:center;gap:8px;border:2px solid #000;border-radius:13px;background:#000;color:#fff;padding:11px 22px;box-shadow:0 0 0 2px #fff,3px 3px 0 #000;font-weight:700;font-size:15px;">Get in touch ▸</a>
             </div>
           </div>
           <!-- right: portrait -->
           <div class="resp-portrait" style="width:300px;flex:none;padding:24px;display:flex;flex-direction:column;">
-            <div style="flex:1;border:2px solid #000;overflow:hidden;"><img src="uploads/IMG_070w.jpg" alt="Sofia Flores" style="width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(1) contrast(1.05);display:block;"></div>
-            <div class="ss" style="font-size:9px;margin-top:12px;line-height:1.8;">▪ BASED · REMOTE<br>▪ NOW · BUILDIUM (REALPAGE)<br>▪ FOCUS · UX · AI · STRATEGY</div>
-            <a href="https://www.linkedin.com/in/sofiafloresaraujo/" target="_blank" rel="noopener" class="ss" style="display:inline-block;margin-top:10px;font-size:9px;color:#555;text-decoration:underline;">LinkedIn ↗</a>
+            <div class="portrait-img-wrap" style="flex:1;border:2px solid #000;overflow:hidden;"><img src="uploads/IMG_070w.jpg" alt="Sofia Flores" style="width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(1) contrast(1.05);display:block;"></div>
+            <div class="ss portrait-meta-wrap" style="font-size:9px;margin-top:12px;line-height:1.8;">▪ BASED · REMOTE<br>▪ NOW · BUILDIUM (REALPAGE)<br>▪ FOCUS · UX · AI · STRATEGY<br><a href="https://www.linkedin.com/in/sofiafloresaraujo/" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#555;text-decoration:underline;">LinkedIn ↗</a></div>
           </div>
         </div>
 
@@ -108,7 +110,7 @@
             <span class="ss" style="font-size:10px;color:#fff;">SELECTED WORK ▚ 03</span>
             <a href="case-studies.html" class="ss" style="font-size:9px;color:#fff;text-decoration:underline;">CASE STUDIES →</a>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+          <div class="grid-3col" style="display:grid;grid-template-columns:1fr 1fr 1fr;">
             <div style="border-right:2px solid #000;padding:16px 18px;">
               <div style="height:92px;border:2px solid #000;background:radial-gradient(#000 1.1px,#fff 1.7px) 0 0/5px 5px;"></div>
               <div style="font-weight:700;font-size:19px;margin-top:14px;">Introducing Agentic AI</div>
@@ -154,7 +156,7 @@
             <p style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#111;">I design systems that bring clarity to complexity and support better decisions.</p>
             <a href="mailto:sofiaflores.uk@gmail.com" class="px" style="margin-top:26px;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:2px solid #000;border-radius:12px;background:#000;color:#fff;padding:10px 18px;box-shadow:0 0 0 2px #fff,3px 3px 0 #000;font-weight:700;font-size:14px;">Get in touch ▸</a>
           </div>
-          <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;">
+          <div class="grid-3col" style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;">
             <div style="border-right:2px solid #000;padding:26px 24px;">
               <div style="display:flex;align-items:center;justify-content:space-between;">
                 <span class="ss" style="font-size:12px;">01</span>
@@ -221,7 +223,7 @@
           <span class="ss" style="margin-left:auto;font-size:9px;letter-spacing:.5px;">3 items</span>
         </div>
         <p style="margin:0;padding:20px 32px 0;font-size:14px;line-height:1.6;color:#333;">Ideas, visual work and explorations beyond the case studies.</p>
-        <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;margin-top:20px;">
+        <div class="grid-3col-writing" style="display:grid;grid-template-columns:1.3fr 1fr 1fr;margin-top:20px;">
           <div style="border-right:2px solid #000;border-top:2px solid #000;padding:24px 26px;">
             <div class="ss" style="font-size:9px;color:#555;">WRITING</div>
             <div style="font-weight:700;font-size:19px;margin-top:10px;">Medium</div>

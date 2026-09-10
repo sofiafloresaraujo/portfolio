@@ -363,15 +363,6 @@ class Component extends DCLogic {
         ]
       },
       {
-        key: 'edit', label: 'Edit', open: s.openMenu === 'edit', btnStyle: this.menuBtnStyle(s.openMenu === 'edit'), toggle: () => this.toggleMenu('edit'),
-        items: [
-          { isButton: true, label: 'Undo', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Cut', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Copy', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Paste', disabled: true, action: () => {}, itemStyle: itemStyleDisabled }
-        ]
-      },
-      {
         key: 'work', label: 'Work', open: s.openMenu === 'work', btnStyle: this.menuBtnStyle(s.openMenu === 'work'), toggle: () => this.toggleMenu('work'),
         items: [
           { isLink: true, href: 'case-01.html', label: '01  Introducing Agentic AI', itemStyle },
@@ -394,7 +385,8 @@ class Component extends DCLogic {
         key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
         items: [
           { isLink: true, href: 'portfolio.html', label: 'Portfolio', itemStyle },
-          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
+          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle },
+          { isLink: true, href: 'index.html', label: 'Paint', itemStyle }
         ]
       }
     ];

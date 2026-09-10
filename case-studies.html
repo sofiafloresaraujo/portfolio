@@ -24,6 +24,7 @@
     div[style*="padding:56px"] { padding: 20px !important; }
     div[style*="max-width:1240px"][style*="padding:40px 72px"] { padding: 28px 24px !important; }
     div[style*="grid-template-columns:1fr 1.3fr"] { grid-template-columns: 1fr !important; }
+    .hero-preview-link { display: none !important; }
   }
   @media (max-width: 480px) {
     .sofia-menu-bar { height: auto !important; flex-wrap: wrap; padding: 6px 8px !important; row-gap: 4px; }
@@ -77,8 +78,8 @@
           </div>
           <div style="margin-top:20px;"><a href="case-01.html" class="px" style="font-weight:700;font-size:15px;">View case →</a></div>
         </div>
-        <a href="case-01.html" style="display:block;">
-          <div style="border:2px solid #000;height:220px;overflow:hidden;">
+        <a href="case-01.html" class="hero-preview-link" style="display:block;">
+          <div class="hero-preview-box" style="border:2px solid #000;height:220px;overflow:hidden;">
             <img src="uploads/Property%201%3DPremium.svg" alt="Agentic AI landing experience, Run your business, not your software" style="width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.02);">
           </div>
         </a>
@@ -97,8 +98,8 @@
           </div>
           <div style="margin-top:20px;"><a href="case-02.html" class="px" style="font-weight:700;font-size:15px;">View case →</a></div>
         </div>
-        <a href="case-02.html" style="display:block;">
-          <div style="border:2px solid #000;height:220px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <a href="case-02.html" class="hero-preview-link" style="display:block;">
+          <div class="hero-preview-box" style="border:2px solid #000;height:220px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
             <img src="uploads/Screenshot%202026-09-09%20at%2015.47.35.png" alt="Three document types with signature marks, representing lease, addenda and other documents" style="max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1) contrast(1.02);">
           </div>
         </a>
@@ -117,8 +118,8 @@
           </div>
           <div style="margin-top:20px;"><a href="case-03.html" class="px" style="font-weight:700;font-size:15px;">View case →</a></div>
         </div>
-        <a href="case-03.html" style="display:block;">
-          <div style="border:2px solid #000;height:220px;overflow:hidden;">
+        <a href="case-03.html" class="hero-preview-link" style="display:block;">
+          <div class="hero-preview-box" style="border:2px solid #000;height:220px;overflow:hidden;">
             <img src="uploads/AI%20settings%20_%20Renewal%20Offers.png" alt="Lumina AI settings, rental owner approvals for renewal offers" style="width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.02);display:block;">
           </div>
         </a>
@@ -158,15 +159,6 @@ class Component extends DCLogic {
         ]
       },
       {
-        key: 'edit', label: 'Edit', open: s.openMenu === 'edit', btnStyle: this.menuBtnStyle(s.openMenu === 'edit'), toggle: () => this.toggleMenu('edit'),
-        items: [
-          { isButton: true, label: 'Undo', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Cut', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Copy', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Paste', disabled: true, action: () => {}, itemStyle: itemStyleDisabled }
-        ]
-      },
-      {
         key: 'work', label: 'Work', open: s.openMenu === 'work', btnStyle: this.menuBtnStyle(s.openMenu === 'work'), toggle: () => this.toggleMenu('work'),
         items: [
           { isLink: true, href: 'case-01.html', label: '01  Introducing Agentic AI', itemStyle },
@@ -189,7 +181,8 @@ class Component extends DCLogic {
         key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
         items: [
           { isLink: true, href: 'portfolio.html', label: 'Portfolio', itemStyle },
-          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
+          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle },
+          { isLink: true, href: 'index.html', label: 'Paint', itemStyle }
         ]
       }
     ];

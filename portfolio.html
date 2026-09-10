@@ -50,7 +50,7 @@
         <div style="position:absolute;top:24px;left:0;min-width:210px;background:#fff;border:2px solid #000;box-shadow:4px 4px 0 #000;z-index:1050;padding:5px 0;">
           <sc-for list="{{ menu.items }}" as="item" hint-placeholder-count="3">
             <sc-if value="{{ item.sep }}" hint-placeholder-val="{{ false }}"><div style="border-top:1px solid #000;margin:5px 10px;"></div></sc-if>
-            <sc-if value="{{ item.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ item.href }}" style="{{ item.itemStyle }}">{{ item.label }}</a></sc-if>
+            <sc-if value="{{ item.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ item.href }}" onClick="{{ item.onClick }}" style="{{ item.itemStyle }}">{{ item.label }}</a></sc-if>
             <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}"><button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="{{ item.itemStyle }}">{{ item.label }}</button></sc-if>
           </sc-for>
         </div>
@@ -69,8 +69,6 @@
         <div style="position:relative;height:28px;border-bottom:2px solid #000;background:#000;display:flex;align-items:center;justify-content:center;flex:none;">
           <button onClick="{{ closePortfolio }}" aria-label="Close window" style="position:absolute;left:2px;top:1px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;padding:0;cursor:pointer;"><span style="width:13px;height:13px;border:2px solid #fff;background:#000;display:block;"></span></button>
           <span class="px" style="position:relative;color:#fff;padding:0 12px;font-weight:600;font-size:15px;letter-spacing:.3px;">Portfolio · Sofia Flores</span>
-          <div style="position:absolute;right:27px;top:7px;width:13px;height:13px;border:2px solid #fff;background:#000;"></div>
-          <div style="position:absolute;right:9px;top:7px;width:13px;height:13px;border:2px solid #fff;background:#000;"></div>
         </div>
 
         <div class="resp-row" style="display:flex;min-height:360px;">
@@ -239,7 +237,7 @@
       </div>
 
       <!-- WHAT I'M EXPLORING window -->
-      <div id="anthesis-window" style="border:2px solid #000;background:#fff;box-shadow:6px 6px 0 #000;">
+      <div id="anthesis-window" style="border:2px solid #000;background:#fff;box-shadow:6px 6px 0 #000;scroll-margin-top:34px;">
         <div style="position:relative;height:24px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;">
           <div style="position:absolute;inset:5px 8px;background:repeating-linear-gradient(#000 0 1px,transparent 1px 3px);"></div>
           <div style="position:absolute;left:8px;top:5px;width:13px;height:13px;border:2px solid #000;background:#fff;"></div>
@@ -309,6 +307,14 @@ class Component extends DCLogic {
   toggleMenu = (key) => this.setState((s) => ({ openMenu: s.openMenu === key ? null : key }));
   closeMenus = () => this.setState({ openMenu: null });
   stopBubble = (e) => e.stopPropagation();
+  scrollToAnthesis = (e) => {
+    e.preventDefault();
+    this.closeMenus();
+    const el = document.getElementById('anthesis-window');
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 34;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
 
   menuBtnStyle(active) {
     return 'background:' + (active ? '#000' : 'none') + ';color:' + (active ? '#fff' : '#000') + ';border:none;font-weight:600;font-size:14px;padding:4px 12px;cursor:pointer;';
@@ -333,22 +339,13 @@ class Component extends DCLogic {
         ]
       },
       {
-        key: 'edit', label: 'Edit', open: s.openMenu === 'edit', btnStyle: this.menuBtnStyle(s.openMenu === 'edit'), toggle: () => this.toggleMenu('edit'),
-        items: [
-          { isButton: true, label: 'Undo', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Cut', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Copy', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, label: 'Paste', disabled: true, action: () => {}, itemStyle: itemStyleDisabled }
-        ]
-      },
-      {
         key: 'work', label: 'Work', open: s.openMenu === 'work', btnStyle: this.menuBtnStyle(s.openMenu === 'work'), toggle: () => this.toggleMenu('work'),
         items: [
           { isLink: true, href: 'case-01.html', label: '01  Introducing Agentic AI', itemStyle },
           { isLink: true, href: 'case-02.html', label: '02  Expanding eSignatures Beyond the Lease', itemStyle },
           { isLink: true, href: 'case-03.html', label: '03  Automating the Coordination, Not the Decision', itemStyle },
           { sep: true },
-          { isLink: true, href: '#anthesis-window', label: 'Anthesis', itemStyle }
+          { isLink: true, href: '#anthesis-window', onClick: this.scrollToAnthesis, label: 'Anthesis', itemStyle }
         ]
       },
       {
@@ -357,14 +354,15 @@ class Component extends DCLogic {
           { isLink: true, href: '#hero-window', label: 'Home', itemStyle },
           { isLink: true, href: '#selected-work', label: 'Selected Work', itemStyle },
           { isLink: true, href: '#capabilities-window', label: 'Capabilities', itemStyle },
-          { isLink: true, href: '#anthesis-window', label: 'Anthesis', itemStyle }
+          { isLink: true, href: '#anthesis-window', onClick: this.scrollToAnthesis, label: 'Anthesis', itemStyle }
         ]
       },
       {
         key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
         items: [
           { isLink: true, href: 'portfolio.html', label: 'Portfolio', itemStyle },
-          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
+          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle },
+          { isLink: true, href: 'index.html', label: 'Paint', itemStyle }
         ]
       }
     ];

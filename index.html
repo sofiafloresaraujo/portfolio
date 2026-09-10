@@ -557,19 +557,6 @@ class Component extends DCLogic {
         ]
       },
       {
-        key: 'edit', label: 'Edit', open: s.openMenu === 'edit',
-        btnStyle: this.menuBtnStyle(s.openMenu === 'edit'),
-        toggle: () => this.toggleMenu('edit'),
-        items: [
-          { isButton: true, sep: false, label: 'Undo', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, sep: false, label: 'Cut', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, sep: false, label: 'Copy', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { isButton: true, sep: false, label: 'Paste', disabled: true, action: () => {}, itemStyle: itemStyleDisabled },
-          { sep: true },
-          { isButton: true, sep: false, label: 'Clear', disabled: !s.windows.paint.open, action: this.clearPaint, itemStyle: s.windows.paint.open ? itemStyle : itemStyleDisabled }
-        ]
-      },
-      {
         key: 'work', label: 'Work', open: s.openMenu === 'work',
         btnStyle: this.menuBtnStyle(s.openMenu === 'work'),
         toggle: () => this.toggleMenu('work'),

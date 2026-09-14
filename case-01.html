@@ -31,6 +31,7 @@
   .shotwrap input:focus-visible ~ .shot { outline:3px solid #000; outline-offset:2px; }
   .viewlabel { position:absolute; bottom:10px; right:12px; font-family:'Silkscreen',monospace; font-size:8px; letter-spacing:.3px; background:#fff; padding:3px 7px; border:1px solid #000; pointer-events:none; opacity:.85; }
   .frame { border:2px solid #000; background:#faf9f6; padding:40px; }
+  .case-hero-frame { padding: 32px; }
   @media (max-width: 1024px) {
     .case-diagram-3 { grid-template-columns: 1fr !important; gap: 12px !important; }
     .case-diagram-3 > .case-diagram-arrow { display: none !important; }
@@ -48,15 +49,13 @@
     .case-diagram-3 { grid-template-columns: 1fr !important; gap: 12px; }
     .case-diagram-3 > .case-diagram-arrow { display: none !important; }
     .case-window-grip { height: 22px !important; }
-    .case-hero-frame { padding: 10px !important; }
+    .case-hero-frame { padding: 14px !important; }
     .case-hero-frame .shotwrap { height: 190px !important; }
     .case-hero-frame img { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: top !important; }
-    .case-right-stripes { display: block !important; }
     .case-demo-frame { padding: 8px !important; }
     .case-mapping-frame { padding: 12px 16px 24px !important; }
     .case-mapping-frame .frame { padding: 12px !important; }
     .case-mapping-frame .case-mapping-img-box { height: 190px !important; }
-    .case-mapping-frame img { width: 190% !important; }
     .case-decision-diagram { padding: 12px !important; }
     .case-next-link { padding: 32px 16px !important; }
     h1 { font-size: 34px !important; }
@@ -81,7 +80,7 @@
           <sc-for list="{{ menu.items }}" as="item" hint-placeholder-count="3">
             <sc-if value="{{ item.sep }}" hint-placeholder-val="{{ false }}"><div style="border-top:1px solid #000;margin:5px 10px;"></div></sc-if>
             <sc-if value="{{ item.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ item.href }}" style="{{ item.itemStyle }}">{{ item.label }}</a></sc-if>
-            <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}"><button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="{{ item.itemStyle }}">{{ item.label }}</button></sc-if>
+            <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}"><button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="margin:0;box-sizing:border-box;appearance:none;-webkit-appearance:none;{{ item.itemStyle }}font-synthesis:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeSpeed;">{{ item.label }}</button></sc-if>
           </sc-for>
         </div>
       </sc-if>
@@ -97,7 +96,7 @@
     <div class="ss" style="font-size:11px;background:#000;color:#fff;padding:6px 12px;">CASE 01 / 03</div>
   </div>
 
-  <div class="case-window" style="max-width:1240px;margin:0 auto;border:2px solid #000;background:#fff;box-shadow:8px 8px 0 rgba(0,0,0,.35);position:relative;">
+  <div class="case-window" style="max-width:1240px;margin:0 auto;border:2px solid #000;background:#fff;box-shadow:5px 5px 0 rgba(0,0,0,.22);position:relative;">
     <div class="case-right-stripes" aria-hidden="true" style="display:none;position:absolute;top:0;right:0;bottom:0;width:10px;z-index:5;pointer-events:none;background:repeating-linear-gradient(to bottom,#000 0,#000 2px,transparent 2px,transparent 4px);"></div>
     <div class="case-window-grip" style="position:relative;height:28px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;">
       <div style="position:absolute;inset:5px 8px;background:repeating-linear-gradient(#000 0 1px,transparent 1px 3px);"></div>
@@ -184,7 +183,7 @@
       <div class="case-mapping-frame">
       <div class="frame" style="margin-top:32px;">
         <div class="case-mapping-img-box" style="height:400px;overflow:hidden;border:2px solid #000;">
-          <img src="uploads/Onboarding%20Agent%20(Phase2).jpg" alt="As-is onboarding journey map" style="width:148%;display:block;">
+          <img src="uploads/Onboarding%20Agent%20(Phase2).jpg" alt="As-is onboarding journey map" style="width:100%;height:100%;display:block;object-fit:cover;object-position:left top;">
         </div>
       </div>
       </div>
@@ -318,6 +317,7 @@
 
     <div style="border-top:2px solid #000;"></div>
 
+
     <!-- NEXT CASE -->
     <a href="case-02.html" class="case-next-link" style="display:block;padding:44px 72px;">
       <div class="ss" style="font-size:10px;color:#555;">NEXT CASE →</div>
@@ -338,7 +338,7 @@ class Component extends DCLogic {
     return 'background:' + (active ? '#000' : 'none') + ';color:' + (active ? '#fff' : '#000') + ';border:none;font-weight:600;font-size:14px;padding:4px 12px;cursor:pointer;';
   }
   itemStyle(disabled) {
-    return 'display:block;width:100%;text-align:left;background:none;border:none;padding:7px 16px;font-size:13px;font-family:"Work Sans",sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
+    return 'display:block;width:100%;text-align:left;background:none;border:none;text-decoration:none;padding:6px 12px;font-size:14px;font-weight:600;line-height:1.3;font-family:\'Pixelify Sans\',sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
   }
 
   renderVals() {
@@ -379,13 +379,15 @@ class Component extends DCLogic {
         key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
         items: [
           { isLink: true, href: 'portfolio.html', label: 'Portfolio', itemStyle },
-          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle },
-          { isLink: true, href: 'index.html', label: 'Paint', itemStyle }
+          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
         ]
       }
     ];
 
-    return { menus, closeMenus: this.closeMenus, stopBubble: this.stopBubble };
+
+    return {
+      menus, closeMenus: this.closeMenus, stopBubble: this.stopBubble
+    };
   }
 }
 </script>

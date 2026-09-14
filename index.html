@@ -25,7 +25,6 @@
   }
   @media (max-width: 768px) {
     html, body { overflow-x: hidden; }
-    .paint-window { left: 4px !important; top: 40px !important; width: calc(100vw - 8px) !important; max-width: calc(100vw - 8px) !important; height: 80vh !important; max-height: 80vh !important; }
   }
   @media (max-width: 480px) {
     .sofia-menu-bar { padding: 0 6px !important; }
@@ -66,10 +65,10 @@
                     <div style="border-top:1px solid #000;margin:5px 10px;"></div>
                   </sc-if>
                   <sc-if value="{{ item.isLink }}" hint-placeholder-val="{{ false }}">
-                    <a href="{{ item.href }}" style="{{ item.itemStyle }}">{{ item.label }}</a>
+                    <a href="{{ item.href }}" target="{{ item.target }}" rel="{{ item.rel }}" download="{{ item.download }}" style="{{ item.itemStyle }}">{{ item.label }}</a>
                   </sc-if>
                   <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}">
-                    <button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="{{ item.itemStyle }}">{{ item.label }}</button>
+                    <button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="margin:0;box-sizing:border-box;appearance:none;-webkit-appearance:none;{{ item.itemStyle }}font-synthesis:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeSpeed;">{{ item.label }}</button>
                   </sc-if>
                 </sc-for>
               </div>
@@ -146,48 +145,6 @@
           </div>
         </sc-if>
 
-        <sc-if value="{{ paintOpen }}" hint-placeholder-val="{{ false }}">
-          <div class="paint-window" onMouseDown="{{ focusPaint }}" style="{{ paintWinStyle }}">
-            <div class="px" style="height:26px;border-bottom:2px solid #000;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;flex:none;">
-              <span style="font-size:14px;font-weight:600;">{{ paintTitle }}</span>
-              <button onClick="{{ closePaint }}" aria-label="Close window" style="position:absolute;left:6px;top:2px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;padding:0;cursor:pointer;"><span style="width:13px;height:13px;border:2px solid #fff;background:#000;display:block;"></span></button>
-            </div>
-            <div style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
-              <div style="display:flex;flex:1;overflow:hidden;">
-                <div style="width:68px;flex:none;border-right:2px solid #000;background:#fff;display:flex;flex-direction:column;padding:6px;gap:8px;">
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
-                    <button onClick="{{ setToolPencil }}" aria-label="Pencil" style="{{ btnPencil }}"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 12 L10 4 L12 6 L4 14z" fill="none" stroke="{{ colPencil }}" stroke-width="1.4"></path><path d="M9 3 L11 1 L13 3 L11 5z" fill="{{ colPencil }}"></path></svg></button>
-                    <button onClick="{{ setToolBrush }}" aria-label="Brush" style="{{ btnBrush }}"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 12 Q4 14 6 12 L12 3 L10 1 L3 8 Q1 10 2 12Z" fill="none" stroke="{{ colBrush }}" stroke-width="1.4"></path></svg></button>
-                    <button onClick="{{ setToolSpray }}" aria-label="Spray" style="{{ btnSpray }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="4" y="6" width="5" height="7" fill="none" stroke="{{ colSpray }}" stroke-width="1.3"></rect><rect x="5" y="2" width="3" height="4" fill="none" stroke="{{ colSpray }}" stroke-width="1.3"></rect><circle cx="11" cy="4" r="0.7" fill="{{ colSpray }}"></circle><circle cx="12" cy="7" r="0.7" fill="{{ colSpray }}"></circle><circle cx="10" cy="8" r="0.7" fill="{{ colSpray }}"></circle></svg></button>
-                    <button onClick="{{ setToolEraser }}" aria-label="Eraser" style="{{ btnEraser }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="5" width="10" height="6" fill="none" stroke="{{ colEraser }}" stroke-width="1.4" transform="rotate(-14 7 8)"></rect></svg></button>
-                    <button onClick="{{ setToolText }}" aria-label="Text" style="{{ btnText }}"><svg width="14" height="14" viewBox="0 0 14 14"><text x="2" y="11" font-size="11" font-family="monospace" fill="{{ colText }}">A</text></svg></button>
-                    <button onClick="{{ setToolBucket }}" aria-label="Bucket fill" style="{{ btnBucket }}"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 6 L7 1 L12 6 Z" fill="none" stroke="{{ colBucket }}" stroke-width="1.3"></path><rect x="2" y="6" width="10" height="6" fill="none" stroke="{{ colBucket }}" stroke-width="1.3"></rect></svg></button>
-                    <button onClick="{{ setToolLine }}" aria-label="Line" style="{{ btnLine }}"><svg width="14" height="14" viewBox="0 0 14 14"><line x1="2" y1="12" x2="12" y2="2" stroke="{{ colLine }}" stroke-width="1.6"></line></svg></button>
-                    <button onClick="{{ setToolRect }}" aria-label="Rectangle" style="{{ btnRect }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="3" width="10" height="8" fill="none" stroke="{{ colRect }}" stroke-width="1.4"></rect></svg></button>
-                    <button onClick="{{ setToolRectFilled }}" aria-label="Filled rectangle" style="{{ btnRectFilled }}"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="3" width="10" height="8" fill="{{ colRectFilled }}"></rect></svg></button>
-                    <button onClick="{{ setToolOval }}" aria-label="Oval" style="{{ btnOval }}"><svg width="14" height="14" viewBox="0 0 14 14"><ellipse cx="7" cy="7" rx="5" ry="4" fill="none" stroke="{{ colOval }}" stroke-width="1.4"></ellipse></svg></button>
-                    <button onClick="{{ setToolOvalFilled }}" aria-label="Filled oval" style="{{ btnOvalFilled }}"><svg width="14" height="14" viewBox="0 0 14 14"><ellipse cx="7" cy="7" rx="5" ry="4" fill="{{ colOvalFilled }}"></ellipse></svg></button>
-                    <div></div>
-                  </div>
-                  <div style="border-top:1px solid #000;padding-top:6px;display:flex;flex-direction:column;gap:2px;">
-                    <button onClick="{{ setStroke1 }}" style="{{ strokeBtn1 }}"><span style="width:100%;height:1px;background:#000;display:block;"></span></button>
-                    <button onClick="{{ setStroke2 }}" style="{{ strokeBtn2 }}"><span style="width:100%;height:2px;background:#000;display:block;"></span></button>
-                    <button onClick="{{ setStroke3 }}" style="{{ strokeBtn3 }}"><span style="width:100%;height:4px;background:#000;display:block;"></span></button>
-                    <button onClick="{{ setStroke4 }}" style="{{ strokeBtn4 }}"><span style="width:100%;height:6px;background:#000;display:block;"></span></button>
-                  </div>
-                </div>
-                <div style="flex:1;background:#fff;display:flex;align-items:center;justify-content:center;overflow:auto;padding:8px;">
-                  <canvas ref="{{ canvasRef }}" width="600" height="380" onMouseDown="{{ paintDown }}" onMouseMove="{{ paintMove }}" onMouseUp="{{ paintUp }}" onMouseLeave="{{ paintUp }}" style="border:1px solid #000;background:#fff;cursor:crosshair;max-width:100%;max-height:100%;"></canvas>
-                </div>
-              </div>
-              <div style="height:28px;flex:none;border-top:2px solid #000;background:#fff;display:flex;align-items:center;gap:1px;padding:0 6px;overflow-x:auto;">
-                <sc-for list="{{ patternTiles }}" as="tile" hint-placeholder-count="0">
-                  <button onClick="{{ tile.action }}" style="{{ tile.style }}"><img src="{{ tile.url }}" style="width:100%;height:100%;display:block;image-rendering:pixelated;" alt="Pattern"></button>
-                </sc-for>
-              </div>
-            </div>
-          </div>
-        </sc-if>
 
       </div>
 
@@ -210,13 +167,10 @@ class Component extends DCLogic {
     windows: {
       portfolio: { open: false, z: 1 },
       cv: { open: false, z: 1 },
-      paint: { open: false, z: 1 },
       trash: { open: false, z: 1 }
     },
     zTop: 1,
     alertOpen: false,
-    paintTool: 'pencil',
-    paintDirty: false,
     patternIndex: 0,
     strokeWidth: 2
   };
@@ -224,9 +178,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.portfolioScrollRef = React.createRef();
-    this.canvasRef = React.createRef();
     this.alertOkRef = React.createRef();
-    this._paintInited = false;
   }
 
   componentDidMount() {
@@ -250,7 +202,7 @@ class Component extends DCLogic {
       }
       if (e.key === 'Escape') {
         const w = this.state.windows;
-        const candidates = ['paint', 'cv', 'trash'].filter((k) => w[k].open);
+        const candidates = ['cv', 'trash'].filter((k) => w[k].open);
         if (candidates.length) {
           candidates.sort((a, b) => w[b].z - w[a].z);
           this.closeWindow(candidates[0]);
@@ -271,50 +223,9 @@ class Component extends DCLogic {
     if (this.state.alertOpen && !prevState.alertOpen && this.alertOkRef.current) {
       this.alertOkRef.current.focus();
     }
-    if (this.state.windows.paint.open && this.canvasRef.current && !this._paintInited) {
-      const ctx = this.canvasRef.current.getContext('2d');
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(0, 0, this.canvasRef.current.width, this.canvasRef.current.height);
-      this._paintInited = true;
-      this.buildPatterns();
-    }
   }
 
-  buildPatterns() {
-    const defs = [
-      (c) => { c.fillStyle = '#000'; c.fillRect(0, 0, 8, 8); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; c.fillRect(0, 0, 1, 1); c.fillRect(4, 4, 1, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y += 2) for (let x = 0; x < 8; x += 2) c.fillRect(x, y, 1, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) if (((x >> 2) + (y >> 2)) % 2 === 0) c.fillRect(x, y, 1, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let x = 0; x < 8; x += 2) c.fillRect(x, 0, 1, 8); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y += 2) c.fillRect(0, y, 8, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let i = 0; i < 8; i++) c.fillRect(i, i, 1, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let i = 0; i < 8; i++) c.fillRect(7 - i, i, 1, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let x = 0; x < 8; x += 2) c.fillRect(x, 0, 1, 8); for (let y = 0; y < 8; y += 2) c.fillRect(0, y, 8, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) if ((x + y) % 3 === 0) c.fillRect(x, y, 1, 1); },
-      (c) => { c.fillStyle = '#000'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#fff'; for (let y = 0; y < 8; y += 2) for (let x = 0; x < 8; x += 2) c.fillRect(x, y, 1, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; c.fillRect(0, 0, 4, 4); c.fillRect(4, 4, 4, 4); },
-      (c) => { c.fillStyle = '#000'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#fff'; c.fillRect(2, 2, 4, 4); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) if ((x * 3 + y * 5) % 7 === 0) c.fillRect(x, y, 1, 1); },
-      (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 8, 8); c.fillStyle = '#000'; for (let y = 1; y < 8; y += 3) c.fillRect(0, y, 8, 1); for (let x = 1; x < 8; x += 3) c.fillRect(x, 0, 1, 8); }
-    ];
-    this.patternCanvases = defs.map((draw) => {
-      const cv = document.createElement('canvas');
-      cv.width = 8; cv.height = 8;
-      draw(cv.getContext('2d'));
-      return cv;
-    });
-    this.forceUpdate();
-  }
 
-  getFillStyle(ctx) {
-    const i = this.state.patternIndex;
-    if (i === 0) return '#000';
-    if (i === 1) return '#fff';
-    if (this.patternCanvases && this.patternCanvases[i]) return ctx.createPattern(this.patternCanvases[i], 'repeat');
-    return '#000';
-  }
 
   dismissWelcome = () => {
     if (this.state.stage !== 'welcome') return;
@@ -359,9 +270,6 @@ class Component extends DCLogic {
   closeCV = () => this.closeWindow('cv');
   focusCV = () => this.focusWindow('cv');
 
-  openPaint = () => this.openWindow('paint');
-  closePaint = () => this.closeWindow('paint');
-  focusPaint = () => this.focusWindow('paint');
 
   openTrash = () => this.openWindow('trash');
   closeTrash = () => this.closeWindow('trash');
@@ -409,136 +317,12 @@ class Component extends DCLogic {
 
   closeAlert = () => this.setState({ alertOpen: false });
 
-  setPaintTool = (tool) => this.setState({ paintTool: tool });
-  setPattern = (i) => this.setState({ patternIndex: i });
-  setStrokeWidth = (w) => this.setState({ strokeWidth: w });
 
-  getPoint(e) {
-    const rect = this.canvasRef.current.getBoundingClientRect();
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  }
 
-  paintDown = (e) => {
-    const { x, y } = this.getPoint(e);
-    const ctx = this.canvasRef.current.getContext('2d');
-    const tool = this.state.paintTool;
-    this._paintStart = { x, y };
-    this._paintDrawing = true;
-    if (tool === 'pencil' || tool === 'brush' || tool === 'eraser') {
-      ctx.beginPath();
-      ctx.lineWidth = tool === 'pencil' ? 1 : this.state.strokeWidth * (tool === 'eraser' ? 3 : 1.6);
-      ctx.strokeStyle = tool === 'eraser' ? '#fff' : '#000';
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.moveTo(x, y);
-      ctx.lineTo(x + 0.1, y + 0.1);
-      ctx.stroke();
-      this.setState({ paintDirty: true });
-    } else if (tool === 'spray') {
-      this.sprayAt(ctx, x, y);
-      this.setState({ paintDirty: true });
-    } else if (tool === 'bucket') {
-      ctx.fillStyle = this.getFillStyle(ctx);
-      ctx.fillRect(0, 0, this.canvasRef.current.width, this.canvasRef.current.height);
-      this._paintDrawing = false;
-      this.setState({ paintDirty: true });
-    } else if (tool === 'text') {
-      this._paintDrawing = false;
-      const txt = window.prompt('Text:');
-      if (txt) {
-        ctx.fillStyle = '#000';
-        ctx.font = '16px monospace';
-        ctx.fillText(txt, x, y);
-        this.setState({ paintDirty: true });
-      }
-    }
-  };
 
-  sprayAt(ctx, x, y) {
-    const r = this.state.strokeWidth * 3 + 4;
-    ctx.fillStyle = '#000';
-    for (let i = 0; i < 8; i++) {
-      const a = Math.random() * Math.PI * 2;
-      const d = Math.random() * r;
-      ctx.fillRect(x + Math.cos(a) * d, y + Math.sin(a) * d, 1, 1);
-    }
-  }
-
-  paintMove = (e) => {
-    if (!this._paintDrawing) return;
-    const { x, y } = this.getPoint(e);
-    const ctx = this.canvasRef.current.getContext('2d');
-    const tool = this.state.paintTool;
-    if (tool === 'pencil' || tool === 'brush' || tool === 'eraser') {
-      ctx.lineTo(x, y);
-      ctx.stroke();
-    } else if (tool === 'spray') {
-      this.sprayAt(ctx, x, y);
-    }
-  };
-
-  paintUp = (e) => {
-    if (!this._paintDrawing) return;
-    this._paintDrawing = false;
-    const { x, y } = this.getPoint(e);
-    const ctx = this.canvasRef.current.getContext('2d');
-    const tool = this.state.paintTool;
-    const sx = this._paintStart.x, sy = this._paintStart.y;
-    if (tool === 'line') {
-      ctx.beginPath();
-      ctx.lineWidth = this.state.strokeWidth;
-      ctx.strokeStyle = '#000';
-      ctx.moveTo(sx, sy);
-      ctx.lineTo(x, y);
-      ctx.stroke();
-      this.setState({ paintDirty: true });
-    } else if (tool === 'rect') {
-      ctx.lineWidth = this.state.strokeWidth;
-      ctx.strokeStyle = '#000';
-      ctx.strokeRect(sx, sy, x - sx, y - sy);
-      this.setState({ paintDirty: true });
-    } else if (tool === 'rectFilled') {
-      ctx.fillStyle = this.getFillStyle(ctx);
-      ctx.fillRect(sx, sy, x - sx, y - sy);
-      this.setState({ paintDirty: true });
-    } else if (tool === 'oval' || tool === 'ovalFilled') {
-      const cx = (sx + x) / 2, cy = (sy + y) / 2;
-      const rx = Math.abs(x - sx) / 2, ry = Math.abs(y - sy) / 2;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, Math.max(rx, 0.5), Math.max(ry, 0.5), 0, 0, Math.PI * 2);
-      if (tool === 'ovalFilled') {
-        ctx.fillStyle = this.getFillStyle(ctx);
-        ctx.fill();
-      } else {
-        ctx.lineWidth = this.state.strokeWidth;
-        ctx.strokeStyle = '#000';
-        ctx.stroke();
-      }
-      this.setState({ paintDirty: true });
-    }
-  };
-
-  clearPaint = () => {
-    const canvas = this.canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    this.setState({ paintDirty: false });
-  };
-
-  savePaint = () => {
-    const canvas = this.canvasRef.current;
-    if (!canvas) return;
-    const url = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'sofia-os-drawing.png';
-    a.click();
-  };
 
   buildItemStyle(disabled) {
-    return 'display:block;width:100%;text-align:left;background:none;border:none;padding:7px 16px;font-size:13px;font-family:"Work Sans",sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
+    return 'display:block;width:100%;text-align:left;background:none;border:none;text-decoration:none;padding:6px 12px;font-size:14px;font-weight:600;line-height:1.3;font-family:\'Pixelify Sans\',sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
   }
 
   menuBtnStyle(active) {
@@ -560,8 +344,6 @@ class Component extends DCLogic {
           { sep: true },
           { isLink: true, sep: false, href: 'assets/Sofia-Flores-Resume.pdf', target: '_blank', label: 'Open CV', itemStyle },
           { isLink: true, sep: false, href: 'assets/Sofia-Flores-Resume.pdf', download: 'Sofia-Flores-Resume.pdf', label: 'Download CV', itemStyle },
-          { sep: true },
-          { isButton: true, sep: false, label: 'Save Image', disabled: !s.windows.paint.open, action: this.savePaint, itemStyle: s.windows.paint.open ? itemStyle : itemStyleDisabled }
         ]
       },
       {
@@ -573,7 +355,7 @@ class Component extends DCLogic {
           { isLink: true, sep: false, label: '02  Expanding eSignatures Beyond the Lease', href: 'case-02.html', itemStyle },
           { isLink: true, sep: false, label: '03  Automating the Coordination, Not the Decision', href: 'case-03.html', itemStyle },
           { sep: true },
-          { isButton: true, sep: false, label: 'Anthesis', action: () => this.goSection('anthesis-window'), itemStyle }
+          { isLink: true, sep: false, href: 'https://sofiafloresaraujo.substack.com/?utm_campaign=profile_chips', target: '_blank', rel: 'noopener', label: 'Anthesis', itemStyle }
         ]
       },
       {
@@ -593,18 +375,13 @@ class Component extends DCLogic {
         toggle: () => this.toggleMenu('window'),
         items: [
           { isButton: true, sep: false, label: 'Portfolio', action: this.openPortfolio, itemStyle },
-          { isButton: true, sep: false, label: 'Paint', action: this.openPaint, itemStyle }
+          { isLink: true, sep: false, href: 'case-studies.html', label: 'Case Studies', itemStyle }
         ]
       }
     ];
 
     const winBase = 'position:absolute;background:#fff;border:2px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.35);display:flex;flex-direction:column;';
 
-    const toolBtn = (tool) => 'width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:1px solid #000;background:' + (s.paintTool === tool ? '#000' : '#fff') + ';cursor:pointer;padding:0;';
-    const toolColor = (tool) => s.paintTool === tool ? '#fff' : '#000';
-    const strokeBtn = (w) => 'width:100%;height:14px;border:1px solid #000;background:#fff;display:flex;align-items:center;padding:0 4px;cursor:pointer;margin-top:2px;' + (s.strokeWidth === w ? 'background:#eee;' : '');
-    const patternBtn = (i) => 'width:20px;height:20px;flex:none;border:1px solid #000;padding:0;cursor:pointer;' + (s.patternIndex === i ? 'outline:2px solid #000;outline-offset:1px;' : '');
-    const patternTiles = this.patternCanvases ? this.patternCanvases.map((cv, i) => ({ i, url: cv.toDataURL(), style: patternBtn(i), action: () => this.setPattern(i) })) : [];
 
     return {
       showWelcome: s.stage === 'welcome',
@@ -633,42 +410,6 @@ class Component extends DCLogic {
       trashWinStyle: winBase + 'left:38%;top:120px;width:320px;height:240px;z-index:' + (100 + s.windows.trash.z) + ';',
       closeTrash: this.closeTrash,
       focusTrash: this.focusTrash,
-      paintOpen: s.windows.paint.open,
-      paintWinStyle: winBase + 'left:calc(50% - 380px);top:60px;width:760px;height:520px;max-width:92vw;max-height:82vh;z-index:' + (100 + s.windows.paint.z) + ';',
-      paintTitle: s.paintDirty ? 'Untitled*' : 'Untitled',
-      closePaint: this.closePaint,
-      focusPaint: this.focusPaint,
-      canvasRef: this.canvasRef,
-      paintDown: this.paintDown,
-      paintMove: this.paintMove,
-      paintUp: this.paintUp,
-      setToolPencil: () => this.setPaintTool('pencil'),
-      setToolBrush: () => this.setPaintTool('brush'),
-      setToolSpray: () => this.setPaintTool('spray'),
-      setToolEraser: () => this.setPaintTool('eraser'),
-      setToolText: () => this.setPaintTool('text'),
-      setToolBucket: () => this.setPaintTool('bucket'),
-      setToolLine: () => this.setPaintTool('line'),
-      setToolRect: () => this.setPaintTool('rect'),
-      setToolRectFilled: () => this.setPaintTool('rectFilled'),
-      setToolOval: () => this.setPaintTool('oval'),
-      setToolOvalFilled: () => this.setPaintTool('ovalFilled'),
-      btnPencil: toolBtn('pencil'), colPencil: toolColor('pencil'),
-      btnBrush: toolBtn('brush'), colBrush: toolColor('brush'),
-      btnSpray: toolBtn('spray'), colSpray: toolColor('spray'),
-      btnEraser: toolBtn('eraser'), colEraser: toolColor('eraser'),
-      btnText: toolBtn('text'), colText: toolColor('text'),
-      btnBucket: toolBtn('bucket'), colBucket: toolColor('bucket'),
-      btnLine: toolBtn('line'), colLine: toolColor('line'),
-      btnRect: toolBtn('rect'), colRect: toolColor('rect'),
-      btnRectFilled: toolBtn('rectFilled'), colRectFilled: toolColor('rectFilled'),
-      btnOval: toolBtn('oval'), colOval: toolColor('oval'),
-      btnOvalFilled: toolBtn('ovalFilled'), colOvalFilled: toolColor('ovalFilled'),
-      strokeBtn1: strokeBtn(1), strokeBtn2: strokeBtn(2), strokeBtn3: strokeBtn(4), strokeBtn4: strokeBtn(7),
-      setStroke1: () => this.setStrokeWidth(1), setStroke2: () => this.setStrokeWidth(2), setStroke3: () => this.setStrokeWidth(4), setStroke4: () => this.setStrokeWidth(7),
-      patternTiles,
-      clearPaint: this.clearPaint,
-      savePaint: this.savePaint,
       stopBubble: (e) => e.stopPropagation(),
       alertOpen: s.alertOpen,
       alertOkRef: this.alertOkRef,

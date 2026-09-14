@@ -24,7 +24,7 @@
   @media (max-width: 900px) {
     #1b { width: 100% !important; }
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 1024.98px) {
     html, body { overflow-x: hidden; }
     #turn1 { padding: 14px !important; padding-top: 60px !important; gap: 16px !important; }
     .resp-row { flex-direction: column !important; }
@@ -65,7 +65,7 @@
           <sc-for list="{{ menu.items }}" as="item" hint-placeholder-count="3">
             <sc-if value="{{ item.sep }}" hint-placeholder-val="{{ false }}"><div style="border-top:1px solid #000;margin:5px 10px;"></div></sc-if>
             <sc-if value="{{ item.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ item.href }}" onClick="{{ item.onClick }}" style="{{ item.itemStyle }}">{{ item.label }}</a></sc-if>
-            <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}"><button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="{{ item.itemStyle }}">{{ item.label }}</button></sc-if>
+            <sc-if value="{{ item.isButton }}" hint-placeholder-val="{{ false }}"><button onClick="{{ item.action }}" disabled="{{ item.disabled }}" style="margin:0;box-sizing:border-box;appearance:none;-webkit-appearance:none;{{ item.itemStyle }}font-synthesis:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeSpeed;">{{ item.label }}</button></sc-if>
           </sc-for>
         </div>
       </sc-if>
@@ -314,6 +314,7 @@
 
   </div>
 
+
 </section>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
@@ -335,7 +336,7 @@ class Component extends DCLogic {
     return 'background:' + (active ? '#000' : 'none') + ';color:' + (active ? '#fff' : '#000') + ';border:none;font-weight:600;font-size:14px;padding:4px 12px;cursor:pointer;';
   }
   itemStyle(disabled) {
-    return 'display:block;width:100%;text-align:left;background:none;border:none;padding:7px 16px;font-size:13px;font-family:"Work Sans",sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
+    return 'display:block;width:100%;text-align:left;background:none;border:none;text-decoration:none;padding:6px 12px;font-size:14px;font-weight:600;line-height:1.3;font-family:\'Pixelify Sans\',sans-serif;cursor:' + (disabled ? 'default' : 'pointer') + ';color:' + (disabled ? '#999' : '#000') + ';';
   }
 
   renderVals() {
@@ -358,9 +359,7 @@ class Component extends DCLogic {
         items: [
           { isLink: true, href: 'case-01.html', label: '01  Introducing Agentic AI', itemStyle },
           { isLink: true, href: 'case-02.html', label: '02  Expanding eSignatures Beyond the Lease', itemStyle },
-          { isLink: true, href: 'case-03.html', label: '03  Automating the Coordination, Not the Decision', itemStyle },
-          { sep: true },
-          { isLink: true, href: '#anthesis-window', onClick: this.scrollToAnthesis, label: 'Anthesis', itemStyle }
+          { isLink: true, href: 'case-03.html', label: '03  Automating the Coordination, Not the Decision', itemStyle }
         ]
       },
       {
@@ -376,13 +375,15 @@ class Component extends DCLogic {
         key: 'window', label: 'Window', open: s.openMenu === 'window', btnStyle: this.menuBtnStyle(s.openMenu === 'window'), toggle: () => this.toggleMenu('window'),
         items: [
           { isLink: true, href: 'portfolio.html', label: 'Portfolio', itemStyle },
-          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle },
-          { isLink: true, href: 'index.html', label: 'Paint', itemStyle }
+          { isLink: true, href: 'case-studies.html', label: 'Case Studies', itemStyle }
         ]
       }
     ];
 
-    return { menus, closeMenus: this.closeMenus, stopBubble: this.stopBubble, closePortfolio: this.props.onClosePortfolio || function () { window.location.href = 'index.html'; } };
+
+    return {
+      menus, closeMenus: this.closeMenus, stopBubble: this.stopBubble, closePortfolio: this.props.onClosePortfolio || function () { window.location.href = 'index.html'; },
+    };
   }
 }
 </script>
